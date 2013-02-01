@@ -14,6 +14,7 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.Timer;
 
+import Algorithm.Agents.ColorationAlgorithm;
 import IO.GrapheReader;
 import IO.GrapheWriter;
 import Model.GraphException;
@@ -70,6 +71,8 @@ public class TestGraphics {
 			GraphVisualizer visu = new GraphVisualizer(g, p,iv,ie);
 			//GrapheWriter w = new GrapheWriter("test.gr");
 			//w.write(g);
+			ColorationAlgorithm cal = new ColorationAlgorithm(g);
+			cal.start();
 			System.out.println("nbVertex : "+g.getVertexNumber());
 			System.out.println("nbEdge : "+g.getEdgesNumber());
 		} catch (GraphException e) {

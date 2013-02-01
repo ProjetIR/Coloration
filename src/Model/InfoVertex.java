@@ -44,6 +44,8 @@ public class InfoVertex extends Info implements Serializable{
 	}
 
 	
+
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		// TODO Stub de la méthode généré automatiquement

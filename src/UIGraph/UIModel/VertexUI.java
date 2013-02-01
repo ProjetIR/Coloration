@@ -95,7 +95,7 @@ public class VertexUI extends Component implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Stub de la méthode généré automatiquement
-		
+	
 			Point p = (Point)arg;
 			Point c = this.getLocation();
 			if((c.x == p.x-v.getInfo().getRayon()) && (c.y == p.y-v.getInfo().getRayon())) 
@@ -104,6 +104,8 @@ public class VertexUI extends Component implements Observer{
 				return;
 				}
 			this.setLocation(p.x,p.y);
+		
+			
 		
 	}
 	
