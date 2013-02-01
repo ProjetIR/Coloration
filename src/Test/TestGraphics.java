@@ -56,13 +56,13 @@ public class TestGraphics {
 		try {
 			Timer t  = new Timer();
 			t.scheduleAtFixedRate(new Task(p), new Date(System.currentTimeMillis()),1);
-			//Graphe g = new Graphe();
-			GrapheReader r = new GrapheReader("test.gr");
-			Graphe g = r.read();
-			//Generator gen = new RandomGenerator(5,10);
+			Graphe g = new Graphe();
+			//GrapheReader r = new GrapheReader("test.gr");
+			//Graphe g = r.read();
+			Generator gen = new RandomGenerator(10,40);
 			InfoVertex iv = new InfoVertex(Color.red, new Point(4,5),10);
 			InfoEdge ie = new InfoEdge(Color.black, 1);
-			//gen.generate(g, iv , ie );
+			gen.generate(g, iv , ie );
 			
 			RandomDisposition dp = new RandomDisposition(p);
 			dp.place(g);

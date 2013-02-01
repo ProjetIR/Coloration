@@ -36,10 +36,11 @@ public class VertexController extends Observable implements Runnable {
 				for(int i : repartition){
 					System.out.println(i);
 				}
-				if(posColor>=0){
+				int argmin = argMIN(repartition);
+				if(posColor != argmin){
 					
 					if(repartition[posColor] != 0){
-						int argmin = argMIN(repartition);
+						
 						synchronized (this.v) {
 							System.out.println("Thread vertex "+this.v.getId()+" change de couleur pour le "+colors[argmin]);
 							this.v.getInfo().setCol(colors[argmin]);
@@ -48,7 +49,7 @@ public class VertexController extends Observable implements Runnable {
 					
 				}
 				System.out.println("Thread vertex "+this.v.getId()+" s'endort");
-				Thread.sleep(10);
+				Thread.sleep(1000);
 				System.out.println("Thread vertex "+this.v.getId()+" se réveille");
 					
 			}

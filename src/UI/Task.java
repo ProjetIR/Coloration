@@ -16,10 +16,10 @@ public class Task extends TimerTask {
 	@Override
 	public void run() {
 		// TODO Stub de la méthode généré automatiquement
-			if(!f.isValid()){
+			//if(!f.isValid()){
 				f.repaint();
 				f.validate();
-			}
+			//}
 
 
 	}
