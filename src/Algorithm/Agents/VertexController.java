@@ -16,6 +16,7 @@ public class VertexController extends Observable implements Runnable {
 	private Collection<Vertex> neighbours;
 	private State state;
 	private boolean interrupted;
+	private int nbConflicts;
 	
 	public VertexController(Vertex v,Collection<Vertex> neighbours,State state) {
 		super();
@@ -33,9 +34,6 @@ public class VertexController extends Observable implements Runnable {
 				Color[] colors =  state.getColors();
 				int[] repartition = getRepartionColor(colors, neighbours);
 				int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
-				for(int i : repartition){
-					System.out.println(i);
-				}
 				int argmin = argMIN(repartition);
 				if(posColor != argmin){
 					
@@ -44,6 +42,7 @@ public class VertexController extends Observable implements Runnable {
 						synchronized (this.v) {
 							System.out.println("Thread vertex "+this.v.getId()+" change de couleur pour le "+colors[argmin]);
 							this.v.getInfo().setCol(colors[argmin]);
+							this.nbConflicts = repartition[argmin];
 						}
 					}
 					

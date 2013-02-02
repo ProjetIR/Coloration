@@ -21,6 +21,9 @@ public class ColorationAlgorithm {
 			col.add(Color.red);
 			col.add(Color.GREEN);
 			col.add(Color.BLACK);
+			col.add(Color.CYAN);
+			col.add(Color.YELLOW);
+			col.add(Color.PINK);
 			state = new State(col, false);
 			processus = new ArrayList<Thread>();
 			for(Vertex v : g.getAllVertex()){
