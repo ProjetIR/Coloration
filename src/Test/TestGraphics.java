@@ -59,7 +59,7 @@ public class TestGraphics {
 			Graphe g = new Graphe();
 			//GrapheReader r = new GrapheReader("test.gr");
 			//Graphe g = r.read();
-			Generator gen = new RandomGenerator(20,95);
+			Generator gen = new RandomGenerator(20,19);
 			InfoVertex iv = new InfoVertex(Color.red, new Point(4,5),10);
 			InfoEdge ie = new InfoEdge(Color.black, 1);
 			gen.generate(g, iv , ie );

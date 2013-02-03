@@ -65,7 +65,14 @@ public class MasterController extends Thread{
 		} catch (InterruptedException e) {
 			// TODO Bloc catch généré automatiquement
 			System.out.println("Thread master interrompu -- fin de l'algorithme");
-			System.out.println(this.state);
+			System.out.println("Nombre de couleur: "+state.getNumberColors());
+			for(VertexController t : processus){
+				totalConflits += t.getNbConflicts();
+
+			}
+			// On a compté les conflits 2 fois
+			totalConflits/=2;
+			System.out.println("Thread Master detects "+totalConflits +"conflicts" );
 		}
 		
 	}

@@ -40,6 +40,10 @@ public class State {
 		this.end = end;
 	}
 
+	public int getNumberColors(){
+		
+		return colors.size();
+	}
 	@Override
 	public String toString() {
 		// TODO Stub de la méthode généré automatiquement
