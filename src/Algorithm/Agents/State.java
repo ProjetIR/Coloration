@@ -39,6 +39,17 @@ public class State {
 	public void setEnd(boolean end) {
 		this.end = end;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Stub de la méthode généré automatiquement
+		String s ="";
+		for(Color c : colors){
+			s+=c+";";
+		}
+		return s;
+	}
+	
 	
 	
 	

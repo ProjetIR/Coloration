@@ -65,6 +65,7 @@ public class MasterController extends Thread{
 		} catch (InterruptedException e) {
 			// TODO Bloc catch généré automatiquement
 			System.out.println("Thread master interrompu -- fin de l'algorithme");
+			System.out.println(this.state);
 		}
 		
 	}
