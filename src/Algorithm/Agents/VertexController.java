@@ -2,29 +2,37 @@ package Algorithm.Agents;
 
 import java.awt.Color;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
-
-import Model.GraphException;
-import Model.Graphe;
 import Model.Vertex;
 
-public class VertexController extends Observable implements Runnable {
+public class VertexController extends Thread {
 	
 	private Vertex v;
 	private Collection<Vertex> neighbours;
-	private State state;
-	private boolean interrupted;
+	private Algorithm.Agents.State state;
+	private boolean sleep;
 	private int nbConflicts;
 	
-	public VertexController(Vertex v,Collection<Vertex> neighbours,State state) {
+	public VertexController(Vertex v,Collection<Vertex> neighbours,Algorithm.Agents.State state) {
 		super();
 		this.v = v;
 		this.neighbours = neighbours;
 		this.state = state;
-		this.interrupted = false;
+		this.sleep = false;
 	}
+	
+	
+	
+	public int getNbConflicts() {
+		return nbConflicts;
+	}
+
+	
+
+	public boolean isSleep() {
+		return sleep;
+	}
+
+
 
 	@Override
 	public void run() {
@@ -47,9 +55,8 @@ public class VertexController extends Observable implements Runnable {
 					}
 					
 				}
-				System.out.println("Thread vertex "+this.v.getId()+" s'endort");
-				Thread.sleep(1000);
-				System.out.println("Thread vertex "+this.v.getId()+" se réveille");
+				sleep(1000);
+				wakeUp();
 					
 			}
 		} catch (InterruptedException e) {
@@ -60,15 +67,7 @@ public class VertexController extends Observable implements Runnable {
 	
 	
 	
-	public boolean isInterrupted() {
-		// TODO Stub de la méthode généré automatiquement
-		return this.interrupted;
-	}
-	
-	public void interrupted() {
-		// TODO Stub de la méthode généré automatiquement
-		this.interrupted = true;
-	}
+
 
 	private int[] getRepartionColor(Color[] availableColor,Collection<Vertex> neighbours ) throws InterruptedException{
 		
@@ -108,5 +107,16 @@ public class VertexController extends Observable implements Runnable {
 		return -1;
 	}
 	
+	
+	private void sleep(int m) throws InterruptedException{
+		System.out.println("Thread vertex "+this.v.getId()+" s'endort");
+		this.sleep = true;
+		Thread.sleep(m);
+	}
+	
+	private void wakeUp(){
+		System.out.println("Thread vertex "+this.v.getId()+" se réveille");
+		this.sleep = false;
+	}
 	
 }

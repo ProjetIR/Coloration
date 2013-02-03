@@ -2,6 +2,7 @@ package Algorithm.Agents;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class State {
 
@@ -20,6 +21,11 @@ public class State {
 			tab[i] = colors.get(i);
 		}
 		return tab;
+	}
+	
+	public Collection<Color> getCollectionColors() {
+
+		return colors;
 	}
 
 	public void setColors(ArrayList<Color> colors) {

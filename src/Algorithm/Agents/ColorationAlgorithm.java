@@ -10,8 +10,9 @@ import Model.Vertex;
 public class ColorationAlgorithm {
 	
 	private Graphe g;
-	private ArrayList<Thread> processus;
+	private ArrayList<VertexController> processus;
 	private State state;
+	private MasterController master;
 	
 	public ColorationAlgorithm(Graphe g){
 		
@@ -19,17 +20,13 @@ public class ColorationAlgorithm {
 			this.g = g;
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
-			col.add(Color.GREEN);
-			col.add(Color.BLACK);
-			col.add(Color.CYAN);
-			col.add(Color.YELLOW);
-			col.add(Color.PINK);
 			state = new State(col, false);
-			processus = new ArrayList<Thread>();
+			processus = new ArrayList<VertexController>();
 			for(Vertex v : g.getAllVertex()){
 				
-				processus.add(new Thread(new VertexController(v, g.getNeighbours(v), state)));
+				processus.add(new VertexController(v, g.getNeighbours(v), state));
 			}
+			this.master = new MasterController(processus, state, 3);
 		} catch (GraphException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -42,6 +39,7 @@ public class ColorationAlgorithm {
 		for(Thread p : processus){
 			p.start();
 		}
+		this.master.start();
 	}
 
 }
