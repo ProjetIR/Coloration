@@ -10,20 +10,27 @@ public class VertexController extends Thread {
 	private Collection<Vertex> neighbours;
 	private Algorithm.Agents.State state;
 	private boolean sleep;
-	private int nbConflicts;
 	
 	public VertexController(Vertex v,Collection<Vertex> neighbours,Algorithm.Agents.State state) {
 		super();
-		this.v = v;
-		this.neighbours = neighbours;
-		this.state = state;
-		this.sleep = false;
+			this.v = v;
+			this.neighbours = neighbours;
+			this.state = state;
+			this.sleep = false;
 	}
 	
 	
 	
 	public int getNbConflicts() {
-		return nbConflicts;
+		try {
+			Color[] colors =  state.getColors();
+			int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
+			int[] repartition = getRepartionColor(colors, neighbours);
+			return repartition[posColor];
+		} catch (InterruptedException e) {
+			// TODO Bloc catch généré automatiquement
+			return -1;
+		}
 	}
 
 	
@@ -50,7 +57,6 @@ public class VertexController extends Thread {
 						synchronized (this.v) {
 							System.out.println("Thread vertex "+this.v.getId()+" change de couleur pour le "+colors[argmin]);
 							this.v.getInfo().setCol(colors[argmin]);
-							this.nbConflicts = repartition[argmin];
 						}
 					}
 					
@@ -61,7 +67,7 @@ public class VertexController extends Thread {
 			}
 		} catch (InterruptedException e) {
 			// TODO Bloc catch généré automatiquement
-			e.printStackTrace();
+			System.out.println("Mort du Thread vertex "+this.v.getId());
 		}
 	}
 	

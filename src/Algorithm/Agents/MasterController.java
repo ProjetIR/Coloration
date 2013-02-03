@@ -30,8 +30,9 @@ public class MasterController extends Thread{
 	@Override
 	public void run() {
 		// TODO Stub de la méthode généré automatiquement
-		while(!isInterrupted()){
-			try {
+		try {
+			while(!isInterrupted()){
+			
 				System.out.println("Thread Master is wake up");
 				totalConflits = 0;
 				nbThreadAlive = 0;
@@ -39,7 +40,13 @@ public class MasterController extends Thread{
 					totalConflits += t.getNbConflicts();
 					if(!t.isSleep()) nbThreadAlive++;
 				}
+				// On a compté les conflits 2 fois
+				totalConflits/=2;
 				System.out.println("Thread Master detects "+totalConflits +"conflicts" );
+				if(totalConflits == 0){
+					interruptAll();
+					throw new InterruptedException();
+				}
 				if(totalConflits == oldTotalConflits){
 					counter++;
 					if(counter == nbWakeUp){
@@ -52,13 +59,22 @@ public class MasterController extends Thread{
 				oldTotalConflits = totalConflits;
 				System.out.println("Master Thread is going to sleep");
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Bloc catch généré automatiquement
-				e.printStackTrace();
-			}
 			
+			
+			}
+		} catch (InterruptedException e) {
+			// TODO Bloc catch généré automatiquement
+			System.out.println("Thread master interrompu -- fin de l'algorithme");
 		}
 		
+	}
+
+	private void interruptAll() {
+		// TODO Stub de la méthode généré automatiquement
+		for(VertexController t : processus){
+			t.interrupt();
+		}
+		this.interrupt();
 	}
 	
 	

@@ -50,6 +50,12 @@ public class Vertex implements Serializable
 		return this.degree;
 	}
 	
+	public void setDegree(int degree) {
+		this.degree = degree;
+	}
+
+
+
 	public void incrementDegree(){
 		
 		this.degree++;

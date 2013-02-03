@@ -57,6 +57,8 @@ public class Graphe implements Serializable{
 		if(nonOriented){
 			Edge e1 = new Edge(end, start, data,id);
 			this.listEdge.get(end).put(new HashKey(e1.hashCode()), e1);
+			start.setDegree(start.getDegree()-1);
+			end.setDegree(end.getDegree()-1);
 		}
 		this.nbEdge++;
 		return e;
