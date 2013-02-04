@@ -19,7 +19,10 @@ public class VertexController extends Thread {
 			this.sleep = false;
 	}
 	
-	
+	public Vertex getVertex(){
+		
+		return v;
+	}
 	
 	public int getNbConflicts() {
 		try {
@@ -38,7 +41,6 @@ public class VertexController extends Thread {
 	public boolean isSleep() {
 		return sleep;
 	}
-
 
 
 	@Override

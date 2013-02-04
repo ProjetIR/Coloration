@@ -3,6 +3,8 @@ package Algorithm.Agents;
 import java.awt.Color;
 import java.util.Collection;
 
+import Model.Graphe;
+import Model.Vertex;
 import Utils.RandomBetween;
 
 public class MasterController extends Thread{
@@ -85,7 +87,4 @@ public class MasterController extends Thread{
 		this.interrupt();
 	}
 	
-	
-
-
 }

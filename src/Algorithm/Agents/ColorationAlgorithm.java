@@ -65,7 +65,7 @@ public class ColorationAlgorithm {
 	 * 
 	 *
 	 */
-	public int givePriority(int degree,int nbVertices){
+	public static int givePriority(int degree,int nbVertices){
 		
 		double d = (double)degree;
 		return (int)(d/nbVertices)*(Thread.MAX_PRIORITY-Thread.MIN_PRIORITY) + Thread.MIN_PRIORITY;
