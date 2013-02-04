@@ -17,6 +17,7 @@ import java.util.Timer;
 import Algorithm.Agents.ColorationAlgorithm;
 import IO.GrapheReader;
 import IO.GrapheWriter;
+import IO.Benchmark.BenchMarkReader;
 import Model.GraphException;
 import Model.Graphe;
 import Model.InfoEdge;
@@ -56,13 +57,16 @@ public class TestGraphics {
 		try {
 			Timer t  = new Timer();
 			t.scheduleAtFixedRate(new Task(p), new Date(System.currentTimeMillis()),1);
-			Graphe g = new Graphe();
+			//Graphe g = new Graphe();
 			//GrapheReader r = new GrapheReader("test.gr");
 			//Graphe g = r.read();
-			Generator gen = new RandomGenerator(20,19);
+			//Generator gen = new RandomGenerator(20,95);
 			InfoVertex iv = new InfoVertex(Color.red, new Point(4,5),10);
 			InfoEdge ie = new InfoEdge(Color.black, 1);
-			gen.generate(g, iv , ie );
+			//gen.generate(g, iv , ie );
+			
+			BenchMarkReader bReader = new BenchMarkReader("david.col",iv,ie);
+			Graphe g = bReader.read();
 			
 			RandomDisposition dp = new RandomDisposition(p);
 			dp.place(g);
