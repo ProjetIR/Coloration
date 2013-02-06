@@ -24,17 +24,17 @@ public class ColorationAlgorithm {
 			int numberOfVertices = g.getVertexNumber();
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
-			state = new State(col, false);
+			state = new State(col);
 			processus = new ArrayList<VertexController>();
 			for(Vertex v : g.getAllVertex()){
 				System.out.println("Vertex "+v+" , degree = "+v.getDegree());
 				int degree = v.getDegree();
 				int prior = givePriority(degree, numberOfVertices);
 				VertexController vc = new VertexController(v, g.getNeighbours(v), state);
-				vc.setPriority(prior);
+				//vc.setPriority(prior);
 				processus.add(vc);
 			}
-			this.master = new MasterController(processus, state, 3);
+			this.master = new MasterController(processus,g.getAllEdges(), state, 3);
 		} catch (GraphException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -65,10 +65,10 @@ public class ColorationAlgorithm {
 	 * 
 	 *
 	 */
-	public static int givePriority(int degree,int nbVertices){
+	public static int givePriority(int degree,int nb){
 		
 		double d = (double)degree;
-		return (int)(d/nbVertices)*(Thread.MAX_PRIORITY-Thread.MIN_PRIORITY) + Thread.MIN_PRIORITY;
+		return (int)(d/Math.max(nb,1))*(Thread.MAX_PRIORITY-Thread.MIN_PRIORITY) + Thread.MIN_PRIORITY;
 	}
 
 }

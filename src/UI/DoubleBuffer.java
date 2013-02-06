@@ -1,5 +1,6 @@
 package UI;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Panel;
@@ -87,13 +88,6 @@ public class DoubleBuffer extends Panel {
 	        //    create the new image with the size of the panel
 	        bufferImage=createImage(bufferWidth,bufferHeight);
 	        bufferGraphics=bufferImage.getGraphics();
-	    }
-
-
-
-
-	
-
-	
+	    }	
 
 }

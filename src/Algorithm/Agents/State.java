@@ -3,16 +3,15 @@ package Algorithm.Agents;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class State {
 
 	private ArrayList<Color> colors;
-	private boolean end;
-	
-	public State(ArrayList<Color> colors, boolean end) {
+
+	public State(ArrayList<Color> colors) {
 		super();
 		this.colors = colors;
-		this.end = end;
 	}
 
 	public Color[] getColors() {
@@ -22,7 +21,7 @@ public class State {
 		}
 		return tab;
 	}
-	
+
 	public Collection<Color> getCollectionColors() {
 
 		return colors;
@@ -32,13 +31,7 @@ public class State {
 		this.colors = colors;
 	}
 
-	public boolean isEnd() {
-		return end;
-	}
 
-	public void setEnd(boolean end) {
-		this.end = end;
-	}
 
 	public int getNumberColors(){
 		

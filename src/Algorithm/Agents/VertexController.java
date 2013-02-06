@@ -9,14 +9,12 @@ public class VertexController extends Thread {
 	private Vertex v;
 	private Collection<Vertex> neighbours;
 	private Algorithm.Agents.State state;
-	private boolean sleep;
 	
 	public VertexController(Vertex v,Collection<Vertex> neighbours,Algorithm.Agents.State state) {
 		super();
 			this.v = v;
 			this.neighbours = neighbours;
 			this.state = state;
-			this.sleep = false;
 	}
 	
 	public Vertex getVertex(){
@@ -36,12 +34,6 @@ public class VertexController extends Thread {
 		}
 	}
 
-	
-
-	public boolean isSleep() {
-		return sleep;
-	}
-
 
 	@Override
 	public void run() {
@@ -57,19 +49,19 @@ public class VertexController extends Thread {
 					if(repartition[posColor] != 0){
 						
 						synchronized (this.v) {
-							System.out.println("Thread vertex "+this.v.getId()+" change de couleur pour le "+colors[argmin]);
+							//System.out.println("Thread vertex "+this.v.getId()+" change de couleur pour le "+colors[argmin]);
 							this.v.getInfo().setCol(colors[argmin]);
 						}
 					}
 					
 				}
-				sleep(1000);
-				wakeUp();
+				Thread.sleep(10);
+				
 					
 			}
 		} catch (InterruptedException e) {
 			// TODO Bloc catch généré automatiquement
-			System.out.println("Mort du Thread vertex "+this.v.getId());
+			//System.out.println("Mort du Thread vertex "+this.v.getId());
 		}
 	}
 	
@@ -116,15 +108,8 @@ public class VertexController extends Thread {
 	}
 	
 	
-	private void sleep(int m) throws InterruptedException{
-		System.out.println("Thread vertex "+this.v.getId()+" s'endort");
-		this.sleep = true;
-		Thread.sleep(m);
-	}
+
 	
-	private void wakeUp(){
-		System.out.println("Thread vertex "+this.v.getId()+" se réveille");
-		this.sleep = false;
-	}
+
 	
 }

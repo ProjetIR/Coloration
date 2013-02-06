@@ -60,12 +60,12 @@ public class TestGraphics {
 			//Graphe g = new Graphe();
 			//GrapheReader r = new GrapheReader("test.gr");
 			//Graphe g = r.read();
-			//Generator gen = new RandomGenerator(20,95);
+			//Generator gen = new RandomGenerator(3,3);
 			InfoVertex iv = new InfoVertex(Color.red, new Point(4,5),10);
 			InfoEdge ie = new InfoEdge(Color.black, 1);
 			//gen.generate(g, iv , ie );
 			
-			BenchMarkReader bReader = new BenchMarkReader("david.col",iv,ie);
+			BenchMarkReader bReader = new BenchMarkReader("le450_25a.col",iv,ie);
 			Graphe g = bReader.read();
 			
 			RandomDisposition dp = new RandomDisposition(p);

@@ -33,7 +33,16 @@ public class Motion implements MouseMotionListener {
 			VertexUI v = (VertexUI)e.getSource();
 			Point absP = e.getLocationOnScreen();
 			Point posParent = v.getParent().getLocationOnScreen();
-			v.setLocation((new Point(absP.x-posParent.x,absP.y-posParent.y)));
+			Point pos = new Point(absP.x-posParent.x,absP.y-posParent.y);
+			int rayon = v.getVertex().getInfo().getRayon();
+			pos.x = Math.max(pos.x, rayon);
+			pos.y = Math.max(pos.y, rayon);
+			pos.x = Math.min(pos.x, this.visu.getPanel().getWidth()-rayon);
+			pos.y = Math.min(pos.y, this.visu.getPanel().getHeight()-rayon);
+			
+			v.setLocation(pos);
+			
+			System.out.println(new Point(absP.x-posParent.x,absP.y-posParent.y));
 			this.visu.getPanel().invalidate();
 			
 			

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import Utils.HashKey;
 
@@ -126,14 +127,14 @@ public class Graphe implements Serializable{
 
 	public Collection<Edge> getAllEdges() {
 		// TODO Auto-generated method stub
-		Collection<Edge> edges = new ArrayList<Edge>();
+		HashSet<Edge> ensemble = new HashSet<Edge>();
 		Collection<Vertex> vertex= listVertex.values();
 		for(Vertex v :vertex){
 			
-			edges.addAll(listEdge.get(v).values());
+			ensemble.addAll(listEdge.get(v).values());
 			
 		}
-		return edges;
+		return ensemble;
 	}
 
 	public Collection<Vertex> getAllVertex() {
