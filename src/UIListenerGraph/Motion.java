@@ -39,10 +39,7 @@ public class Motion implements MouseMotionListener {
 			pos.y = Math.max(pos.y, rayon);
 			pos.x = Math.min(pos.x, this.visu.getPanel().getWidth()-rayon);
 			pos.y = Math.min(pos.y, this.visu.getPanel().getHeight()-rayon);
-			
 			v.setLocation(pos);
-			
-			System.out.println(new Point(absP.x-posParent.x,absP.y-posParent.y));
 			this.visu.getPanel().invalidate();
 			
 			

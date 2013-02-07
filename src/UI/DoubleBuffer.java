@@ -89,5 +89,7 @@ public class DoubleBuffer extends Panel {
 	        bufferImage=createImage(bufferWidth,bufferHeight);
 	        bufferGraphics=bufferImage.getGraphics();
 	    }	
+	
+
 
 }

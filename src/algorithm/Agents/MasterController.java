@@ -1,4 +1,4 @@
-package Algorithm.Agents;
+package algorithm.Agents;
 
 import java.awt.Color;
 import java.util.Collection;
@@ -12,14 +12,14 @@ public class MasterController extends Thread{
 	
 	private Collection<VertexController> processus;
 	private Collection<Edge> edges;
-	private Algorithm.Agents.State state;
+	private algorithm.Agents.State state;
 	private int totalConflits;
 	private int oldTotalConflits;
 	private int nbWakeUp;
 	private int counter;
 	private RandomBetween generator;
 	
-	public MasterController(Collection<VertexController> processus,Collection<Edge> edges,Algorithm.Agents.State state,int nbWakeUp) {
+	public MasterController(Collection<VertexController> processus,Collection<Edge> edges,algorithm.Agents.State state,int nbWakeUp) {
 		super();
 		this.processus = processus;
 		this.edges = edges;

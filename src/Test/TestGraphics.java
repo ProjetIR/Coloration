@@ -14,7 +14,8 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.Timer;
 
-import Algorithm.Agents.ColorationAlgorithm;
+import algorithm.Agents.ColorationAlgorithm;
+
 import IO.GrapheReader;
 import IO.GrapheWriter;
 import IO.Benchmark.BenchMarkReader;

@@ -53,7 +53,7 @@ public class GraphVisualizer {
 
 	}
 	
-	private void addUIComponents() {
+	public void addUIComponents() {
 		
 		Collection<Vertex> vertex = g.getAllVertex();
 		for(Vertex v: vertex){
@@ -75,10 +75,22 @@ public class GraphVisualizer {
 		}
 	}
 	
+	public void removeAllUIComponents(){
+		this.pan.removeAll();
+		this.selectedVertex.clear();
+		this.selectedEdge.clear();
+	}
+	
 	
 	
 	public Graphe getGraphe() {
 		return g;
+	}
+	
+	
+	
+	public void setGraphe(Graphe g) {
+		this.g = g;
 	}
 
 	public Panel getPanel() {
@@ -231,6 +243,8 @@ public class GraphVisualizer {
 		}
 		return null;
 	}
+
+
 
 
 	

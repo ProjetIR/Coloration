@@ -64,6 +64,8 @@ public class BenchMarkReader {
 			}
 			
 			}
+			g.setNextIDVertex(g.getVertexNumber());
+			g.setNextIDEdge(g.getEdgesNumber());
 		} catch (IOException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();

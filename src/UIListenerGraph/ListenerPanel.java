@@ -11,6 +11,7 @@ import Model.Edge;
 import Model.GraphException;
 import Model.InfoEdge;
 import Model.InfoVertex;
+import UI.Windows;
 import UIGraph.GraphVisualizer;
 import UIGraph.UIModel.EdgeUi;
 import UIGraph.UIModel.VertexUI;
@@ -67,6 +68,7 @@ public class ListenerPanel implements MouseListener{
 				Point posParent = v.getParent().getLocationOnScreen();
 				v.setLocation((new Point(absP.x-posParent.x,absP.y-posParent.y)));
 				g.getPanel().invalidate();
+				Windows.log.info("Création d'un Vertex "+v.getVertex().getId());
 			} catch (CloneNotSupportedException e1) {
 				// TODO Bloc catch généré automatiquement
 				e1.printStackTrace();
@@ -86,17 +88,19 @@ public class ListenerPanel implements MouseListener{
 				
 					if(edge == null){
 						g.addEdgeUi(dataEdge, a, b, true);
-
+						Windows.log.info("Création Edge entre Vertex "+a.getVertex().getId()+ " et Vertex "+b.getVertex().getId());
 					}
 					else{
 						EdgeUi uie = g.findEdgeUiFromEdge(edge);
 						if(e.isShiftDown()){
 							g.removeEdgeUi(uie);
-							
+							Windows.log.info("Création Edge entre Vertex "+uie.getEdge().getStart().getId()+ " et Vertex "+uie.getEdge().getEnd().getId());
 							
 						}else{
 							
 							g.selectEdge(uie);
+							String select = uie.isSelected()?"Sélection ":"Deselection ";
+							Windows.log.info(select+"Edge entre Vertex "+uie.getEdge().getStart().getId()+ " et Vertex "+uie.getEdge().getEnd().getId());
 						}
 					}
 					g.selectVertex(a);

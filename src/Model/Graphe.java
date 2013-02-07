@@ -31,6 +31,24 @@ public class Graphe implements Serializable{
 		this.nbEdge = 0;
 	}
 	
+	public int getNextIDVertex() {
+		return nextIDVertex;
+	}
+
+	public void setNextIDVertex(int nextIDVertex) {
+		if(nextIDVertex>=0)
+			this.nextIDVertex = nextIDVertex;
+	}
+
+	public int getNextIDEdge() {
+		return nextIDEdge;
+	}
+
+	public void setNextIDEdge(int nextIDEdge) {
+		if(nextIDEdge >= 0)
+			this.nextIDEdge = nextIDEdge;
+	}
+
 	public Vertex addVertex(InfoVertex data)
 	{
 		// generer l'id
@@ -197,7 +215,7 @@ public class Graphe implements Serializable{
 		System.gc();
 		
 	}
-
+/*
 	@Override
 	public String toString() {
 		
@@ -213,7 +231,7 @@ public class Graphe implements Serializable{
 		}
 		return s;
 	}
-
+*/
 	
 	
 

@@ -15,9 +15,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Date;
 import java.util.Timer;
+import java.util.logging.Logger;
 
 
 
+import Log.TextAreaHandler;
 import Model.Graphe;
 import Model.InfoEdge;
 import Model.InfoVertex;
@@ -37,31 +39,13 @@ public class Windows extends Frame {
 	private Timer t;
 	private MenuBar mbar;
 	private LogText text;
+	public static Logger log = Logger.getLogger("LOG APPLICATION");
 	
 	public Windows(String title) throws HeadlessException {
 		super(title);
 		try {
 			// TODO Stub du constructeur généré automatiquement
-			addWindowListener(new WindowAdapter(){
-				public void windowClosing (WindowEvent e){
-					System.exit(0);
-				}
-			});
-			
-			this.setLayout(null);
-			Toolkit tk = Toolkit.getDefaultToolkit();
-			Dimension d = tk.getScreenSize(); 	// l'objet d contient les dimensions de l'écran
-			int he, le,		// hauteur et largeur de l’écran 
-			hf,lf;		// hauteur et largeur de la fenêtre
-			int Ox, Oy;		//coordonnées du coin haut gauche de la fenêtre
-
-			he=(int)(d.getHeight());		//récupère la hauteur de l'écran
-			le=(int)(d.getWidth());		//récupère la largeur de l'écran
-			hf = (he/2)+(he/4); lf = (le/2)+(le/4);		// la fenêtre prend 1/4 de l'écran
-			Ox = le/2; Oy = he/2;		// elle est placée à 1/3 du coin haut gauche
-
-			setLocation(Ox-lf/2,Oy-hf/2);	//fixe les coordonnées du coin haut gauche du cadre en pixels
-			this.setSize(new Dimension(800, 600));
+			this.InitializeWindow();
 			this.doubleBuffer = new DoubleBuffer();
 			int height = (int)(this.getHeight()*2D/3);
 			this.doubleBuffer.setSize(new Dimension(this.getWidth(),height));
@@ -81,6 +65,8 @@ public class Windows extends Frame {
 			this.text.setSize(this.getWidth(), heightLog-50);
 			this.text.setLocation(0, this.doubleBuffer.getHeight()+50);
 			this.addComponentListener(new ResizeEvent(this.doubleBuffer, this.text));
+			Windows.log.addHandler(new TextAreaHandler(text));
+			log.setUseParentHandlers(false);
 			this.t  = new Timer();
 			t.scheduleAtFixedRate(new Task(this.doubleBuffer), new Date(System.currentTimeMillis()),1);
 		} catch (Exception e) {
@@ -90,10 +76,33 @@ public class Windows extends Frame {
 		
 	}
 	
-	
+	private void InitializeWindow(){
+		addWindowListener(new WindowAdapter(){
+			public void windowClosing (WindowEvent e){
+				System.exit(0);
+			}
+		});
+		
+		this.setLayout(null);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension d = tk.getScreenSize(); 	// l'objet d contient les dimensions de l'écran
+		int he, le,		// hauteur et largeur de l’écran 
+		hf,lf;		// hauteur et largeur de la fenêtre
+		int Ox, Oy;		//coordonnées du coin haut gauche de la fenêtre
+
+		he=(int)(d.getHeight());		//récupère la hauteur de l'écran
+		le=(int)(d.getWidth());		//récupère la largeur de l'écran
+		hf = (he/2)+(he/4); lf = (le/2)+(le/4);		// la fenêtre prend 1/4 de l'écran
+		Ox = le/2; Oy = he/2;		// elle est placée à 1/3 du coin haut gauche
+
+		setLocation(Ox-lf/2,Oy-hf/2);	//fixe les coordonnées du coin haut gauche du cadre en pixels
+		this.setSize(new Dimension(800, 600));
+	}
 	
 	private void InitializeMenus()
 	{
+		
+		System.out.println(Windows.log);
 		mbar = new MenuBar();
 		Menu m = new Menu("File");
 		MenuItem it = new MenuItem("New Graphe");
@@ -124,7 +133,7 @@ public class Windows extends Frame {
 
 
 	public Graphe getGraphe() {
-		return graphe;
+		return this.graphe;
 	}
 
 
