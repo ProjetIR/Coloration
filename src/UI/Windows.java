@@ -13,9 +13,13 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Timer;
 import java.util.logging.Logger;
+
+import algorithm.Algorithm;
 
 
 
@@ -23,52 +27,72 @@ import Log.TextAreaHandler;
 import Model.Graphe;
 import Model.InfoEdge;
 import Model.InfoVertex;
+import Plugins.LoadPlugins;
 import UI.ListenerUI.BenchmarkLoad;
 import UI.ListenerUI.CloseWindows;
 import UI.ListenerUI.GenerateGraph;
 import UI.ListenerUI.ResizeEvent;
 import UIGraph.GraphVisualizer;
-
+/**
+ * Classe principale de l'application qui permet de générer un graphe, de le charger et d'intérargir
+ * avec lui 
+ * @author emmanuel
+ *
+ */
 public class Windows extends Frame {
 	
-	private Graphe graphe;
-	private DoubleBuffer doubleBuffer;
-	private GraphVisualizer visu; 
-	private InfoVertex iv; 
-	private InfoEdge ie; 
-	private Timer t;
-	private MenuBar mbar;
-	private LogText text;
-	public static Logger log = Logger.getLogger("LOG APPLICATION");
+	private Graphe graphe; // graphe non orienté
+	private DoubleBuffer doubleBuffer; // un double buffer pour éviter le scintillement
+	private GraphVisualizer visu; // un objet permet de gérer les parties UI du graphe
+	private InfoVertex iv; // une structure contenant des informations par défaut pour la construction d'un sommet
+	private InfoEdge ie; // idem pour une arrête
+	private Timer t; // un timer pour l'affichage
+	private MenuBar mbar;// un menu
+	private LogText text; // une zone de texte qui fait office de log
+	private ArrayList<Class> listeAlgorithme;// une liste d'algorithme chargé
+	private ArrayList<Class> listeVisualAlgorithme; // une liste d'algorithme de visualisation chargé
+	public static Logger log = Logger.getLogger("LOG APPLICATION"); // une classe qui génére les messages
 	
 	public Windows(String title) throws HeadlessException {
 		super(title);
 		try {
 			// TODO Stub du constructeur généré automatiquement
+			// Chargement de tous les algorithmes
+			this.listeAlgorithme = new ArrayList<Class>();
+			this.listeVisualAlgorithme = new ArrayList<Class>();
+			LoadPlugins.startLoadingPlugins(this.listeAlgorithme, this.listeVisualAlgorithme);
+			// *********************************************************************************
+			//Initialisation des composants UI
 			this.InitializeWindow();
 			this.doubleBuffer = new DoubleBuffer();
 			int height = (int)(this.getHeight()*2D/3);
 			this.doubleBuffer.setSize(new Dimension(this.getWidth(),height));
 			doubleBuffer.setLayout(null);
 			this.add(this.doubleBuffer);
-			
 			this.setBackground(Color.LIGHT_GRAY);
 			this.doubleBuffer.setLocation(0, 50);
-			this.graphe = new Graphe();
-			this.iv = new InfoVertex(Color.red, new Point(4,5),10);
-			this.ie = new InfoEdge(Color.black, 1);
-			this.visu =  new GraphVisualizer(this.graphe, this.doubleBuffer,this.iv,this.ie);
-			InitializeMenus();
 			this.text = new LogText();
 			this.add(this.text);
 			int heightLog = (int)(this.getHeight()*1D/3);
 			this.text.setSize(this.getWidth(), heightLog-50);
 			this.text.setLocation(0, this.doubleBuffer.getHeight()+50);
 			this.addComponentListener(new ResizeEvent(this.doubleBuffer, this.text));
+			InitializeMenus();
+			//************************************************************************************
+			//Initialisation des outils et de la structure de données
+			this.graphe = new Graphe();
+			this.iv = new InfoVertex(Color.red, new Point(4,5),10);
+			this.ie = new InfoEdge(Color.black, 1);
+			this.visu =  new GraphVisualizer(this.graphe, this.doubleBuffer,this.iv,this.ie);
+			//************************************************************************************
+			// Création d'un système de log
 			Windows.log.addHandler(new TextAreaHandler(text));
 			log.setUseParentHandlers(false);
+			//*************************************************************************************
+			//Initialisation du Timer pour l'affichage
 			this.t  = new Timer();
 			t.scheduleAtFixedRate(new Task(this.doubleBuffer), new Date(System.currentTimeMillis()),1);
+			//*****************************************************************************************
 		} catch (Exception e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -130,7 +154,13 @@ public class Windows extends Frame {
 		setMenuBar(mbar);
 	}
 
-
+	public Collection<Class> getVisualAlgorithme(){
+		return this.listeVisualAlgorithme;
+	}
+	
+	public Collection<Class> getAlgorithme(){
+		return this.listeAlgorithme;
+	}
 
 	public Graphe getGraphe() {
 		return this.graphe;

@@ -26,7 +26,7 @@ import Model.InfoVertex;
 import Model.Generator.Generator;
 import Model.Generator.RandomGenerator;
 import Model.LayoutAlgorithm.ForcedBasedAlgorithm;
-import Model.LayoutAlgorithm.RandomDisposition;
+import Plugins.Algorithm.RandomDisposition;
 import UI.DoubleBuffer;
 import UI.Task;
 import UIGraph.GraphVisualizer;

@@ -1,4 +1,4 @@
-package Model.LayoutAlgorithm;
+package Plugins.Algorithm;
 
 import java.awt.Panel;
 import java.awt.Point;
@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import Model.Graphe;
 import Model.Vertex;
+import Model.LayoutAlgorithm.VisualAlgorithm;
 import Utils.RandomBetween;
 
 

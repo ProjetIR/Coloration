@@ -8,15 +8,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import Model.Graphe;
-import UI.GenerateGrapheFrame;
+import UI.Windows;
+import UI.Generation.GenerateGrapheDialog;
 
 public class GenerateGraph implements ActionListener {
 
 	private Graphe g;
-	private Frame f;
+	private Windows f;
 	
 	
-	public GenerateGraph(Frame f,Graphe g) {
+	public GenerateGraph(Windows f,Graphe g) {
 		super();
 		this.g = g;
 		this.f = f;
@@ -26,7 +27,7 @@ public class GenerateGraph implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Stub de la méthode généré automatiquement
-		GenerateGrapheFrame fen = new GenerateGrapheFrame(f, g);
+		GenerateGrapheDialog fen = new GenerateGrapheDialog(f, g);
 		fen.showDialog();
 	}
 

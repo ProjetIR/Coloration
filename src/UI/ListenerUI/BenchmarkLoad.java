@@ -15,7 +15,7 @@ import Model.Graphe;
 import Model.InfoEdge;
 import Model.InfoVertex;
 import Model.LayoutAlgorithm.ForcedBasedAlgorithm;
-import Model.LayoutAlgorithm.RandomDisposition;
+import Plugins.Algorithm.RandomDisposition;
 import UI.DoubleBuffer;
 import UI.Windows;
 import UIGraph.GraphVisualizer;
