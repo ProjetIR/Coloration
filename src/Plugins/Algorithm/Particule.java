@@ -1,4 +1,4 @@
-package Model.LayoutAlgorithm;
+package Plugins.Algorithm;
 import java.awt.Point;
 
 

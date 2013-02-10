@@ -14,7 +14,6 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.Timer;
 
-import algorithm.Agents.ColorationAlgorithm;
 
 import IO.GrapheReader;
 import IO.GrapheWriter;
@@ -25,7 +24,8 @@ import Model.InfoEdge;
 import Model.InfoVertex;
 import Model.Generator.Generator;
 import Model.Generator.RandomGenerator;
-import Model.LayoutAlgorithm.ForcedBasedAlgorithm;
+import Plugins.Algorithm.ColorationAlgorithm;
+import Plugins.Algorithm.ForcedBasedAlgorithm;
 import Plugins.Algorithm.RandomDisposition;
 import UI.DoubleBuffer;
 import UI.Task;
@@ -77,7 +77,7 @@ public class TestGraphics {
 			//GrapheWriter w = new GrapheWriter("test.gr");
 			//w.write(g);
 			ColorationAlgorithm cal = new ColorationAlgorithm(g);
-			cal.start();
+			cal.compute();
 			System.out.println("nbVertex : "+g.getVertexNumber());
 			System.out.println("nbEdge : "+g.getEdgesNumber());
 		} catch (GraphException e) {

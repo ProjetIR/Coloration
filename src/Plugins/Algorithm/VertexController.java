@@ -1,4 +1,4 @@
-package algorithm.Agents;
+package Plugins.Algorithm;
 
 import java.awt.Color;
 import java.util.Collection;
@@ -8,9 +8,9 @@ public class VertexController extends Thread {
 	
 	private Vertex v;
 	private Collection<Vertex> neighbours;
-	private algorithm.Agents.State state;
+	private Plugins.Algorithm.State state;
 	
-	public VertexController(Vertex v,Collection<Vertex> neighbours,algorithm.Agents.State state) {
+	public VertexController(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state) {
 		super();
 			this.v = v;
 			this.neighbours = neighbours;

@@ -1,4 +1,4 @@
-package algorithm.Agents;
+package Plugins.Algorithm;
 
 import java.awt.Color;
 import java.util.ArrayList;

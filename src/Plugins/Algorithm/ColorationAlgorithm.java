@@ -1,7 +1,10 @@
-package algorithm.Agents;
+package Plugins.Algorithm;
 
 import java.awt.Color;
 import java.util.ArrayList;
+
+import algorithm.AResult;
+import algorithm.Algorithm;
 
 import sun.awt.windows.ThemeReader;
 
@@ -9,7 +12,7 @@ import Model.GraphException;
 import Model.Graphe;
 import Model.Vertex;
 
-public class ColorationAlgorithm {
+public class ColorationAlgorithm implements Algorithm{
 	
 	private Graphe g;
 	private ArrayList<VertexController> processus;
@@ -42,12 +45,15 @@ public class ColorationAlgorithm {
 		
 	}
 	
-	public void start(){
-		
+
+	@Override
+	public AResult compute() {
+		// TODO Stub de la méthode généré automatiquement
 		for(Thread p : processus){
 			p.start();
 		}
 		this.master.start();
+		return null;
 	}
 	
 	/**
@@ -70,5 +76,7 @@ public class ColorationAlgorithm {
 		double d = (double)degree;
 		return (int)(d/Math.max(nb,1))*(Thread.MAX_PRIORITY-Thread.MIN_PRIORITY) + Thread.MIN_PRIORITY;
 	}
+
+	
 
 }

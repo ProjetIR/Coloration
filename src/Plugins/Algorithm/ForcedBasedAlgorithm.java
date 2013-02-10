@@ -1,4 +1,4 @@
-package Model.LayoutAlgorithm;
+package Plugins.Algorithm;
 
 import java.awt.Panel;
 import java.awt.Point;
@@ -8,6 +8,7 @@ import java.util.HashSet;
 import Model.Edge;
 import Model.Graphe;
 import Model.Vertex;
+import Model.LayoutAlgorithm.VisualAlgorithm;
 
 
 public class ForcedBasedAlgorithm implements VisualAlgorithm{

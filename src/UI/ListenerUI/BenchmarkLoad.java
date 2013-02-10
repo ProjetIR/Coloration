@@ -14,7 +14,7 @@ import IO.Benchmark.BenchMarkReader;
 import Model.Graphe;
 import Model.InfoEdge;
 import Model.InfoVertex;
-import Model.LayoutAlgorithm.ForcedBasedAlgorithm;
+import Plugins.Algorithm.ForcedBasedAlgorithm;
 import Plugins.Algorithm.RandomDisposition;
 import UI.DoubleBuffer;
 import UI.Windows;

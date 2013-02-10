@@ -28,10 +28,12 @@ import Model.Graphe;
 import Model.InfoEdge;
 import Model.InfoVertex;
 import Plugins.LoadPlugins;
+import UI.ListenerUI.AlgorithmListener;
 import UI.ListenerUI.BenchmarkLoad;
 import UI.ListenerUI.CloseWindows;
 import UI.ListenerUI.GenerateGraph;
 import UI.ListenerUI.ResizeEvent;
+import UI.ListenerUI.VisualAlgorithmListener;
 import UIGraph.GraphVisualizer;
 /**
  * Classe principale de l'application qui permet de générer un graphe, de le charger et d'intérargir
@@ -78,6 +80,12 @@ public class Windows extends Frame {
 			this.text.setLocation(0, this.doubleBuffer.getHeight()+50);
 			this.addComponentListener(new ResizeEvent(this.doubleBuffer, this.text));
 			InitializeMenus();
+			//***********************************************************************************
+			//Initialisation Menu VisualAlgorithm
+			initialisationMenuVisualAlgorithm();
+			//***********************************************************************************
+			//Initialisation Menu Algorithm
+			initialisationMenuAlgorithm();
 			//************************************************************************************
 			//Initialisation des outils et de la structure de données
 			this.graphe = new Graphe();
@@ -143,17 +151,32 @@ public class Windows extends Frame {
 		quitter.addActionListener(new CloseWindows());
 		m.add(quitter);		
 		mbar.add(m);
-			
-		m = new Menu("Help");
-		m.add(new MenuItem("Help!!!!"));
-		m.addSeparator();
-		m.add(new MenuItem("About..."));
-		mbar.add(m);
-
 		// Recent change
 		setMenuBar(mbar);
 	}
 
+	private void initialisationMenuVisualAlgorithm(){
+		Menu m = new Menu("VisualAlgorithm");
+		for(Class s : this.listeVisualAlgorithme){
+			MenuItem it = new MenuItem(s.getSimpleName());
+			it.addActionListener(new VisualAlgorithmListener(this, s));
+			m.add(it);
+		}
+		mbar.add(m);
+		
+	}
+	
+	private void initialisationMenuAlgorithm(){
+		Menu m = new Menu("Algorithm");
+		for(Class s : this.listeAlgorithme){
+			MenuItem it = new MenuItem(s.getSimpleName());
+			it.addActionListener(new AlgorithmListener(this, s));
+			m.add(it);
+		}
+		mbar.add(m);
+		
+	}
+	
 	public Collection<Class> getVisualAlgorithme(){
 		return this.listeVisualAlgorithme;
 	}
