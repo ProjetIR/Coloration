@@ -70,7 +70,7 @@ public class MasterController extends Thread{
 					}
 				}
 				oldTotalConflits = totalConflits;
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			
 			
 			}

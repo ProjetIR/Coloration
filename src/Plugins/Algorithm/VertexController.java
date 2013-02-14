@@ -48,14 +48,14 @@ public class VertexController extends Thread {
 					
 					if(repartition[posColor] != 0){
 						
-						synchronized (this.v) {
+						//synchronized (this.v) {
 							//System.out.println("Thread vertex "+this.v.getId()+" change de couleur pour le "+colors[argmin]);
 							this.v.getInfo().setCol(colors[argmin]);
-						}
+						//}
 					}
 					
 				}
-				Thread.sleep(10);
+				Thread.sleep(1000);
 				
 					
 			}
