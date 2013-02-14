@@ -9,7 +9,7 @@ public class State {
 
 	private ArrayList<Color> colors;
 
-	public State(ArrayList<Color> colors) {
+	public State(ArrayList<Color> colors,double tmp) {
 		super();
 		this.colors = colors;
 	}
@@ -26,13 +26,11 @@ public class State {
 
 		return colors;
 	}
-
-	public void setColors(ArrayList<Color> colors) {
-		this.colors = colors;
+	
+	public void addColor(Color c){
+		this.colors.add(c);
 	}
-
-
-
+	
 	public int getNumberColors(){
 		
 		return colors.size();

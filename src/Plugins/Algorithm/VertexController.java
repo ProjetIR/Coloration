@@ -3,18 +3,22 @@ package Plugins.Algorithm;
 import java.awt.Color;
 import java.util.Collection;
 import Model.Vertex;
+import Model.Generator.Generator;
+import Utils.RandomBetween;
 
 public class VertexController extends Thread {
 	
 	private Vertex v;
 	private Collection<Vertex> neighbours;
 	private Plugins.Algorithm.State state;
+
 	
 	public VertexController(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state) {
 		super();
 			this.v = v;
 			this.neighbours = neighbours;
 			this.state = state;
+			
 	}
 	
 	public Vertex getVertex(){
@@ -48,14 +52,15 @@ public class VertexController extends Thread {
 					
 					if(repartition[posColor] != 0){
 						
-						//synchronized (this.v) {
-							//System.out.println("Thread vertex "+this.v.getId()+" change de couleur pour le "+colors[argmin]);
-							this.v.getInfo().setCol(colors[argmin]);
-						//}
+						synchronized (this.v) {
+							
+								this.v.getInfo().setCol(colors[argmin]);
+								
+						}
 					}
 					
 				}
-				Thread.sleep(1000);
+				Thread.sleep(10);
 				
 					
 			}

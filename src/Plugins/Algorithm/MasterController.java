@@ -1,11 +1,13 @@
 package Plugins.Algorithm;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import Model.Edge;
 import Model.Graphe;
 import Model.Vertex;
+import Model.Generator.RandomGenerator;
 import Utils.RandomBetween;
 
 public class MasterController extends Thread{
@@ -18,6 +20,7 @@ public class MasterController extends Thread{
 	private int nbWakeUp;
 	private int counter;
 	private RandomBetween generator;
+	private double temp;
 	
 	public MasterController(Collection<VertexController> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
 		super();
@@ -29,6 +32,7 @@ public class MasterController extends Thread{
 		this.nbWakeUp = nbWakeUp;
 		this.generator = new RandomBetween(System.currentTimeMillis());
 		this.setPriority(1);
+		this.temp  = 0;
 	}
 
 	@Override
@@ -60,17 +64,38 @@ public class MasterController extends Thread{
 					interruptAll();
 					throw new InterruptedException();
 				}
+	
 				if(totalConflits == oldTotalConflits ){
+					
 					counter++;
 					if(counter == nbWakeUp){
-						counter = 0;
+						double val = probabilityFunction(temp++);
+						if(Math.random() < val){
+							int r1; 
+							int r2; 
+							do{
+								r1 = generator.randomValue(0, processus.size()-1); 
+								r2 = generator.randomValue(0, processus.size()-1);
+							}while(r1 == r2);
+							ArrayList<VertexController> vc = new ArrayList<VertexController>(processus);
+							Color tmp = vc.get(r1).getVertex().getInfo().getCol();
+							Color bis = vc.get(r2).getVertex().getInfo().getCol();
+							vc.get(r1).getVertex().getInfo().setCol(bis);
+							vc.get(r2).getVertex().getInfo().setCol(tmp);
+							System.out.println(val);
+						}else{
 						Color c = generator.giveNewRandomColor(state.getCollectionColors());
 						//System.out.println("Thread Master decides to generate a new Color" + c );
-						state.getCollectionColors().add(c);
+						state.addColor(c);
+						}
+						counter = 0;
 					}
 				}
+				
 				oldTotalConflits = totalConflits;
-				Thread.sleep(1000);
+				
+				
+				Thread.sleep(10);
 			
 			
 			}
@@ -78,7 +103,23 @@ public class MasterController extends Thread{
 		} catch (InterruptedException e) {
 			// TODO Bloc catch généré automatiquement
 			System.out.println("Thread master interrompu -- fin de l'algorithme");
-			System.out.println("Nombre de couleur: "+state.getNumberColors());
+			Color[] c = state.getColors();
+			int total = 0;
+			try {
+				int [] nbColor = getRepartionColor(c, this.processus);
+				for(int i = 0;i<c.length;i++){
+					System.out.println(c[i]+" nombre = "+nbColor[i]);
+					if(nbColor[i] != 0){
+						total++;
+					}
+				}
+				System.out.println("Nombre de couleur: "+total);
+			} catch (InterruptedException e1) {
+				// TODO Bloc catch généré automatiquement
+				e1.printStackTrace();
+			}
+			
+			
 		}
 	}
 
@@ -89,4 +130,25 @@ public class MasterController extends Thread{
 		}
 		this.interrupt();
 	}
+	
+	private double probabilityFunction(double val){
+		int dim = edges.size();
+		return Math.exp((-1.0)*val);
+	}
+	private int[] getRepartionColor(Color[] availableColor,Collection<VertexController> neighbours ) throws InterruptedException{
+		
+		int[] repartition = new int[availableColor.length];
+		for(int i = 0;i<availableColor.length;i++){
+			for(VertexController v : neighbours){
+			
+					if(availableColor[i].equals(v.getVertex().getInfo().getCol())){
+						repartition[i]++;
+					}
+				
+			}
+
+		}
+		return repartition;
+	}
+	
 }
