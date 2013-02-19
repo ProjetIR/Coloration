@@ -27,7 +27,7 @@ public class GenerateGrapheDialog extends Dialog {
 	private Button generer,annuler;
 	private Panel panneau;
 	private NumericUpDown vertexNumberField,edgeNumberField;
-	private Label vertexNumberLabel,edgeNumberLabel,algo;
+	private Label vertexNumberLabel,edgeNumberLabel;
 	private Choice listVisualAlgorithm;
 	
 	
@@ -59,16 +59,6 @@ public class GenerateGrapheDialog extends Dialog {
 	}
 
 	
-
-
-	public Choice getListVisualAlgorithm() {
-		return listVisualAlgorithm;
-	}
-
-	public void setListVisualAlgorithm(Choice listVisualAlgorithm) {
-		this.listVisualAlgorithm = listVisualAlgorithm;
-	}
-
 	public NumericUpDown getVertexNumberField() {
 		return vertexNumberField;
 	}
@@ -117,10 +107,6 @@ public class GenerateGrapheDialog extends Dialog {
 		 edgeNumberLabel.setSize(150,10);
 		 edgeNumberLabel.setLocation(250, 50);
 		 
-		 algo = new Label("Visualisation algorithm : ");
-		 algo.setSize(200,20);
-		 algo.setLocation(125, 125);
-		 
 		 vertexNumberField = new NumericUpDown(10, 1, 1000);
 		 vertexNumberField.setSize(50,20);
 		 vertexNumberField.setLocation(100, 70);
@@ -128,27 +114,16 @@ public class GenerateGrapheDialog extends Dialog {
 		 edgeNumberField = new NumericUpDown(10, 1, 100000);
 		 edgeNumberField.setSize(60,20);
 		 edgeNumberField.setLocation(280, 70);
-		 
-		 listVisualAlgorithm = new Choice();
-		 for(Class s : parent.getVisualAlgorithme()){
-			 listVisualAlgorithm.add(s.getSimpleName());
-		 }
-		 listVisualAlgorithm.setSize(200,20);
-		 listVisualAlgorithm.setLocation(125, 150);
-		 
+		
 		 panneau.add(generer);
 		 panneau.add(annuler);
 		 panneau.add(vertexNumberLabel);
 		 panneau.add(edgeNumberLabel);
-		 panneau.add(algo);
 		 panneau.add(vertexNumberField);
 		 panneau.add(edgeNumberField);
-		 panneau.add(listVisualAlgorithm);
-		 
+
 		 
 		
-		 
-		 
 	 }
 	 
 

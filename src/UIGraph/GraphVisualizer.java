@@ -8,16 +8,13 @@ import java.awt.event.MouseListener;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-
 import javax.swing.text.html.HTMLDocument.HTMLReader.IsindexAction;
-
 import Model.Edge;
 import Model.GraphException;
 import Model.Graphe;
 import Model.InfoEdge;
 import Model.InfoVertex;
 import Model.Vertex;
-import Model.LayoutAlgorithm.VisualAlgorithm;
 import UIGraph.UIModel.EdgeUi;
 import UIGraph.UIModel.VertexUI;
 import UIListenerGraph.ListenerEdge;

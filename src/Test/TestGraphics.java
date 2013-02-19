@@ -13,8 +13,7 @@ import java.awt.event.WindowListener;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Timer;
-
-
+import algorithm.RandomDisposition;
 import IO.GrapheReader;
 import IO.GrapheWriter;
 import IO.Benchmark.BenchMarkReader;
@@ -25,8 +24,6 @@ import Model.InfoVertex;
 import Model.Generator.Generator;
 import Model.Generator.RandomGenerator;
 import Plugins.Algorithm.ColorationAlgorithm;
-import Plugins.Algorithm.ForcedBasedAlgorithm;
-import Plugins.Algorithm.RandomDisposition;
 import UI.DoubleBuffer;
 import UI.Task;
 import UIGraph.GraphVisualizer;
@@ -69,10 +66,8 @@ public class TestGraphics {
 			BenchMarkReader bReader = new BenchMarkReader("le450_25a.col",iv,ie);
 			Graphe g = bReader.read();
 			
-			RandomDisposition dp = new RandomDisposition(p);
-			dp.place(g);
-			ForcedBasedAlgorithm al = new ForcedBasedAlgorithm(p);
-			al.place(g);
+			RandomDisposition dp = new RandomDisposition(p,g);
+			dp.compute();
 			GraphVisualizer visu = new GraphVisualizer(g, p,iv,ie);
 			//GrapheWriter w = new GrapheWriter("test.gr");
 			//w.write(g);

@@ -5,17 +5,13 @@ import java.awt.Frame;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+import algorithm.RandomDisposition;
 import IO.Benchmark.BenchMarkReader;
 import Model.Graphe;
 import Model.InfoEdge;
 import Model.InfoVertex;
-import Plugins.Algorithm.ForcedBasedAlgorithm;
-import Plugins.Algorithm.RandomDisposition;
 import UI.DoubleBuffer;
 import UI.Windows;
 import UIGraph.GraphVisualizer;
@@ -51,8 +47,8 @@ public class BenchmarkLoad implements ActionListener {
 					BenchMarkReader ben = new BenchMarkReader(filePath, this.f.getDefautInfoVertex(), this.f.getDefautInfoEdge());
 					Graphe g = ben.read();
 					Windows.log.info("Génération du graphe");
-					RandomDisposition dp = new RandomDisposition(this.f.getDoubleBuffer());
-					dp.place(g);
+					RandomDisposition dp = new RandomDisposition(this.f.getDoubleBuffer(),g);
+					dp.compute();
 					Windows.log.info("Positionnement des Vertices sur le Layout");
 					/*Attention aux références au graphe dans le visualiseur et dans la   classe Windows
 					 * Si on modifie l'un, il faut modifier l'autre !!!!
@@ -62,6 +58,7 @@ public class BenchmarkLoad implements ActionListener {
 					this.f.getVisu().removeAllUIComponents();
 					this.f.getVisu().setGraphe(g);
 					this.f.getVisu().addUIComponents();
+					this.f.getHandler().setGraphe(g);
 					Windows.log.info("Activation de la gestion dynamique");
 					Windows.log.info("Nouveau Graphe |V| = "+this.f.getGraphe().getVertexNumber()+" |E| = "+this.f.getGraphe().getEdgesNumber());
 	    		} catch (Exception e1) {

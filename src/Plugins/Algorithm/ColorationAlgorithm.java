@@ -2,6 +2,7 @@ package Plugins.Algorithm;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import algorithm.AResult;
 import algorithm.Algorithm;
@@ -12,7 +13,7 @@ import Model.GraphException;
 import Model.Graphe;
 import Model.Vertex;
 
-public class ColorationAlgorithm implements Algorithm{
+public class ColorationAlgorithm  extends Algorithm {
 	
 	private Graphe g;
 	private ArrayList<VertexController> processus;
@@ -24,6 +25,7 @@ public class ColorationAlgorithm implements Algorithm{
 		
 		try {
 			this.g = g;
+			this.setOneColor();
 			int numberOfVertices = g.getVertexNumber();
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
@@ -37,7 +39,7 @@ public class ColorationAlgorithm implements Algorithm{
 				//vc.setPriority(prior);
 				processus.add(vc);
 			}
-			this.master = new MasterController(processus,g.getAllEdges(), state, 3);
+			this.master = new MasterController(this,processus,g.getAllEdges(), state, 3);
 		} catch (GraphException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -45,15 +47,19 @@ public class ColorationAlgorithm implements Algorithm{
 		
 	}
 	
-
+	public void setOneColor(){
+		for(Vertex v : g.getAllVertex()){
+			v.getInfo().setCol(Color.RED);
+		}
+	}
 	@Override
-	public AResult compute() {
+	public void compute() {
 		// TODO Stub de la méthode généré automatiquement
 		for(Thread p : processus){
 			p.start();
 		}
 		this.master.start();
-		return null;
+
 	}
 	
 	/**
@@ -76,6 +82,16 @@ public class ColorationAlgorithm implements Algorithm{
 		double d = (double)degree;
 		return (int)(d/Math.max(nb,1))*(Thread.MAX_PRIORITY-Thread.MIN_PRIORITY) + Thread.MIN_PRIORITY;
 	}
+
+
+	@Override
+	protected AResult sendAResult() {
+		// TODO Stub de la méthode généré automatiquement
+		return null;
+	}
+
+
+
 
 	
 

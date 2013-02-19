@@ -12,6 +12,7 @@ import Utils.RandomBetween;
 
 public class MasterController extends Thread{
 	
+	private ColorationAlgorithm coloration;
 	private Collection<VertexController> processus;
 	private Collection<Edge> edges;
 	private Plugins.Algorithm.State state;
@@ -22,8 +23,9 @@ public class MasterController extends Thread{
 	private RandomBetween generator;
 	private double temp;
 	
-	public MasterController(Collection<VertexController> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
+	public MasterController(ColorationAlgorithm coloration,Collection<VertexController> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
 		super();
+		this.coloration = coloration;
 		this.processus = processus;
 		this.edges = edges;
 		this.state = state;
@@ -129,6 +131,11 @@ public class MasterController extends Thread{
 			t.interrupt();
 		}
 		this.interrupt();
+		this.notifyEnd();
+	}
+	
+	private void notifyEnd(){
+		this.coloration.end();
 	}
 	
 	private double probabilityFunction(double val){

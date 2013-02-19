@@ -18,11 +18,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Timer;
 import java.util.logging.Logger;
-
 import algorithm.Algorithm;
-
-
-
+import algorithm.AlgorithmHandler;
 import Log.TextAreaHandler;
 import Model.Graphe;
 import Model.InfoEdge;
@@ -33,7 +30,6 @@ import UI.ListenerUI.BenchmarkLoad;
 import UI.ListenerUI.CloseWindows;
 import UI.ListenerUI.GenerateGraph;
 import UI.ListenerUI.ResizeEvent;
-import UI.ListenerUI.VisualAlgorithmListener;
 import UIGraph.GraphVisualizer;
 /**
  * Classe principale de l'application qui permet de générer un graphe, de le charger et d'intérargir
@@ -52,7 +48,7 @@ public class Windows extends Frame {
 	private MenuBar mbar;// un menu
 	private LogText text; // une zone de texte qui fait office de log
 	private ArrayList<Class> listeAlgorithme;// une liste d'algorithme chargé
-	private ArrayList<Class> listeVisualAlgorithme; // une liste d'algorithme de visualisation chargé
+	private AlgorithmHandler handler; // gestionnaire d'algorithme
 	public static Logger log = Logger.getLogger("LOG APPLICATION"); // une classe qui génére les messages
 	
 	public Windows(String title) throws HeadlessException {
@@ -61,8 +57,7 @@ public class Windows extends Frame {
 			// TODO Stub du constructeur généré automatiquement
 			// Chargement de tous les algorithmes
 			this.listeAlgorithme = new ArrayList<Class>();
-			this.listeVisualAlgorithme = new ArrayList<Class>();
-			LoadPlugins.startLoadingPlugins(this.listeAlgorithme, this.listeVisualAlgorithme);
+			LoadPlugins.startLoadingPlugins(this.listeAlgorithme);
 			// *********************************************************************************
 			//Initialisation des composants UI
 			this.InitializeWindow();
@@ -81,9 +76,6 @@ public class Windows extends Frame {
 			this.addComponentListener(new ResizeEvent(this.doubleBuffer, this.text));
 			InitializeMenus();
 			//***********************************************************************************
-			//Initialisation Menu VisualAlgorithm
-			initialisationMenuVisualAlgorithm();
-			//***********************************************************************************
 			//Initialisation Menu Algorithm
 			initialisationMenuAlgorithm();
 			//************************************************************************************
@@ -92,6 +84,7 @@ public class Windows extends Frame {
 			this.iv = new InfoVertex(Color.red, new Point(4,5),10);
 			this.ie = new InfoEdge(Color.black, 1);
 			this.visu =  new GraphVisualizer(this.graphe, this.doubleBuffer,this.iv,this.ie);
+			this.handler = new AlgorithmHandler(this.graphe);
 			//************************************************************************************
 			// Création d'un système de log
 			Windows.log.addHandler(new TextAreaHandler(text));
@@ -155,16 +148,6 @@ public class Windows extends Frame {
 		setMenuBar(mbar);
 	}
 
-	private void initialisationMenuVisualAlgorithm(){
-		Menu m = new Menu("VisualAlgorithm");
-		for(Class s : this.listeVisualAlgorithme){
-			MenuItem it = new MenuItem(s.getSimpleName());
-			it.addActionListener(new VisualAlgorithmListener(this, s));
-			m.add(it);
-		}
-		mbar.add(m);
-		
-	}
 	
 	private void initialisationMenuAlgorithm(){
 		Menu m = new Menu("Algorithm");
@@ -177,9 +160,6 @@ public class Windows extends Frame {
 		
 	}
 	
-	public Collection<Class> getVisualAlgorithme(){
-		return this.listeVisualAlgorithme;
-	}
 	
 	public Collection<Class> getAlgorithme(){
 		return this.listeAlgorithme;
@@ -189,7 +169,9 @@ public class Windows extends Frame {
 		return this.graphe;
 	}
 
-
+	public AlgorithmHandler getHandler() {
+		return handler;
+	}
 
 	public void setGraphe(Graphe graphe) {
 		this.graphe = graphe;
