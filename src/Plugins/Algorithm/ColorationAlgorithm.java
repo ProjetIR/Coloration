@@ -7,6 +7,11 @@ import java.util.Observable;
 import algorithm.AResult;
 import algorithm.Algorithm;
 
+import statictics.ColorVertexObservator;
+import statictics.ConflictsObservator;
+import statictics.ProcessusObservator;
+import statictics.Statictics;
+import statictics.IO.StatisticsWriter;
 import sun.awt.windows.ThemeReader;
 
 import Model.GraphException;
@@ -22,7 +27,7 @@ public class ColorationAlgorithm  extends Algorithm {
 	
 
 	public ColorationAlgorithm(Graphe g){
-		
+		super();
 		try {
 			this.g = g;
 			this.setOneColor();
@@ -59,6 +64,13 @@ public class ColorationAlgorithm  extends Algorithm {
 			p.start();
 		}
 		this.master.start();
+		stats = new Statictics(g);
+		stats.addObservator(new ColorVertexObservator(g));
+		stats.addObservator(new ConflictsObservator(g));
+		stats.addObservator(new ProcessusObservator(this.processus));
+		stats.addObserver(new StatisticsWriter("test.txt", ';'));
+		stats.startRecord(5);
+	
 
 	}
 	

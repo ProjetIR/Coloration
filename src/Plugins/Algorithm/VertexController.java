@@ -71,8 +71,6 @@ public class VertexController extends Thread {
 	}
 	
 	
-	
-
 
 	private int[] getRepartionColor(Color[] availableColor,Collection<Vertex> neighbours ) throws InterruptedException{
 		

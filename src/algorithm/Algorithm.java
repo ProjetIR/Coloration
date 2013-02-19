@@ -7,6 +7,10 @@ import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 
+import statictics.ColorVertexObservator;
+import statictics.Statictics;
+import statictics.IO.StatisticsWriter;
+
 import UI.Task;
 /**
  * Classe utilitaire qui permet de démarrer la tâche de fin d'un algorithme. A savoir:
@@ -42,14 +46,16 @@ class WaitingCloseAllThread extends TimerTask {
  */
 public abstract class Algorithm extends Observable{
 	
-	public abstract void compute();
-	protected abstract AResult sendAResult();
+	protected Statictics stats;
+	public abstract void compute(); // démarrage de l'algorithme
+	protected abstract AResult sendAResult(); // résultat de l'algorithme
 	public void NotifyEnd() {
 		// TODO Stub de la méthode généré automatiquement
 		this.setChanged();
 		this.notifyObservers(this.sendAResult());
 		this.t.cancel();
 		this.t = null;
+		this.stats.stopRecord();
 		//JOptionPane.showMessageDialog(null,"end of algorithm");
 	}
 	
