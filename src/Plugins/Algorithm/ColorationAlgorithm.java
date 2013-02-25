@@ -34,7 +34,7 @@ public class ColorationAlgorithm  extends Algorithm {
 			int numberOfVertices = g.getVertexNumber();
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
-			state = new State(col,g.getEdgesNumber()/numberOfVertices*(1.0));
+			state = new State(col);
 			processus = new ArrayList<VertexController>();
 			for(Vertex v : g.getAllVertex()){
 				System.out.println("Vertex "+v+" , degree = "+v.getDegree());

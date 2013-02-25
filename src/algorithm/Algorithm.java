@@ -55,7 +55,7 @@ public abstract class Algorithm extends Observable{
 		this.notifyObservers(this.sendAResult());
 		this.t.cancel();
 		this.t = null;
-		this.stats.stopRecord();
+		//this.stats.stopRecord();
 		//JOptionPane.showMessageDialog(null,"end of algorithm");
 	}
 	

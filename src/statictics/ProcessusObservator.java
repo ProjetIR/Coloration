@@ -26,7 +26,7 @@ public class ProcessusObservator extends Observator {
 			}
 		}
 		this.values.add(cpt);
-
+		
 	}
 
 	@Override

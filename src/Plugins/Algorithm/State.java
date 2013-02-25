@@ -9,7 +9,7 @@ public class State {
 
 	private ArrayList<Color> colors;
 
-	public State(ArrayList<Color> colors,double tmp) {
+	public State(ArrayList<Color> colors) {
 		super();
 		this.colors = colors;
 	}

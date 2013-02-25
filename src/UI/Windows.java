@@ -29,7 +29,9 @@ import UI.ListenerUI.AlgorithmListener;
 import UI.ListenerUI.BenchmarkLoad;
 import UI.ListenerUI.CloseWindows;
 import UI.ListenerUI.GenerateGraph;
+import UI.ListenerUI.LoadListener;
 import UI.ListenerUI.ResizeEvent;
+import UI.ListenerUI.SaveListener;
 import UIGraph.GraphVisualizer;
 /**
  * Classe principale de l'application qui permet de générer un graphe, de le charger et d'intérargir
@@ -136,8 +138,12 @@ public class Windows extends Frame {
 		MenuItem itemBen = new MenuItem("Open Benchmark");
 		itemBen.addActionListener(new BenchmarkLoad(this));
 		m.add(itemBen);
-		m.add(new MenuItem("Save"));
-		m.add(new MenuItem("Save As"));
+		MenuItem itemLoad = new MenuItem("Load ");
+		itemLoad.addActionListener(new LoadListener(this));
+		m.add(itemLoad);
+		MenuItem itemSave = new MenuItem("Save As");
+		itemSave.addActionListener(new SaveListener(this));
+		m.add(itemSave);
 		m.add(new MenuItem("Print"));
 		m.addSeparator();
 		MenuItem quitter = new MenuItem("Quit");

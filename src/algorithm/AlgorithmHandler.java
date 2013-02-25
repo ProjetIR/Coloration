@@ -51,7 +51,7 @@ public class AlgorithmHandler implements Observer{
 			queue.add(((Algorithm)al));
 			boolean start = this.run();
 			state = new StateHandler(queue.size(), this.current.getClass().getSimpleName(), start);
-			JOptionPane.showMessageDialog(null, state.toString());
+			//JOptionPane.showMessageDialog(null, state.toString());
 		} catch (SecurityException e1) {
 			// TODO Bloc catch généré automatiquement
 			e1.printStackTrace();

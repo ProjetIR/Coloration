@@ -33,7 +33,6 @@ public class MasterController extends Thread{
 		oldTotalConflits = 0;
 		this.nbWakeUp = nbWakeUp;
 		this.generator = new RandomBetween(System.currentTimeMillis());
-		this.setPriority(1);
 		this.temp  = 0;
 	}
 
@@ -53,15 +52,7 @@ public class MasterController extends Thread{
 						totalConflits++;
 					}
 				}
-				/*
-				 * A chaque réveille du maitre, il faut reaffecter les priorité aux vertices
-				 * les plus en conlits
-				 */
-				for(VertexController t : processus){
-					int prior = ColorationAlgorithm.givePriority(t.getNbConflicts(),totalConflits);
-					t.setPriority(prior);
-				}
-				//System.out.println("Thread Master detects "+totalConflits +"conflicts" );
+
 				if(totalConflits == 0){
 					interruptAll();
 					throw new InterruptedException();

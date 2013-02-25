@@ -69,8 +69,8 @@ public class TestGraphics {
 			RandomDisposition dp = new RandomDisposition(p,g);
 			dp.compute();
 			GraphVisualizer visu = new GraphVisualizer(g, p,iv,ie);
-			//GrapheWriter w = new GrapheWriter("test.gr");
-			//w.write(g);
+			GrapheWriter w = new GrapheWriter("/home/emmanuel/test1.gr");
+			w.write(g);
 			ColorationAlgorithm cal = new ColorationAlgorithm(g);
 			cal.compute();
 			System.out.println("nbVertex : "+g.getVertexNumber());

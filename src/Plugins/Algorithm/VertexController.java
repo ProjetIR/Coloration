@@ -91,7 +91,6 @@ public class VertexController extends Thread {
 	private int argMIN(int[] tab){
 		int min = Integer.MAX_VALUE;
 		int argmin = 0;
-		int[] values = new int[2];
 		for(int i = 0 ;i <tab.length;i++){
 			if(tab[i]<min){
 				argmin = i;
