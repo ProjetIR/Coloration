@@ -58,7 +58,7 @@ public class IteratifColoration extends Thread{
 					int[] repartition = getRepartionColor(col, g.getNeighbours(v));
 					int posColor = indiceFromColor(v.getInfo().getCol(), col);
 					int argmin = argMIN(repartition);
-					if(posColor != argmin){
+					if(repartition[posColor] > repartition[argmin]){
 						if(repartition[posColor] != 0){
 									v.getInfo().setCol(col[argmin]);
 						}

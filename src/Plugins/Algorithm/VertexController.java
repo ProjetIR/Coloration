@@ -48,7 +48,7 @@ public class VertexController extends Thread {
 				int[] repartition = getRepartionColor(colors, neighbours);
 				int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
 				int argmin = argMIN(repartition);
-				if(posColor != argmin){
+				if(repartition[posColor] > repartition[argmin]){
 					
 					if(repartition[posColor] != 0){
 						
