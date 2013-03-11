@@ -3,8 +3,7 @@ package Plugins.Algorithm;
 import java.awt.Color;
 import java.util.Collection;
 import Model.Vertex;
-import Model.Generator.Generator;
-import Utils.RandomBetween;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class VertexController extends Thread {
 	
@@ -49,14 +48,10 @@ public class VertexController extends Thread {
 				int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
 				int argmin = argMIN(repartition);
 				if(repartition[posColor] > repartition[argmin]){
-					
-					if(repartition[posColor] != 0){
-						
 						synchronized (this.v) {
 							
 								this.v.getInfo().setCol(colors[argmin]);
-								
-						}
+							
 					}
 					
 				}
@@ -70,8 +65,6 @@ public class VertexController extends Thread {
 		}
 	}
 	
-	
-
 	private int[] getRepartionColor(Color[] availableColor,Collection<Vertex> neighbours ) throws InterruptedException{
 		
 		int[] repartition = new int[availableColor.length];

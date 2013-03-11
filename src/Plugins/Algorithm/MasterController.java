@@ -21,7 +21,7 @@ public class MasterController extends Thread{
 	private int nbWakeUp;
 	private int counter;
 	private RandomBetween generator;
-	private double temp;
+	private double maxDegree;
 	
 	public MasterController(ColorationAlgorithm coloration,Collection<VertexController> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
 		super();
@@ -33,7 +33,7 @@ public class MasterController extends Thread{
 		oldTotalConflits = 0;
 		this.nbWakeUp = nbWakeUp;
 		this.generator = new RandomBetween(System.currentTimeMillis());
-		this.temp  = 0;
+		this.maxDegree  = this.maxdegree(processus);
 	}
 
 	@Override
@@ -52,34 +52,38 @@ public class MasterController extends Thread{
 						totalConflits++;
 					}
 				}
-
+				System.out.println("Nb conflits : "+totalConflits);
 				if(totalConflits == 0){
 					interruptAll();
 					throw new InterruptedException();
 				}
+
 	
 				if(totalConflits == oldTotalConflits ){
 					
 					counter++;
 					if(counter == nbWakeUp){
-						double val = probabilityFunction(temp++);
-						if(Math.random() < val){
-							int r1; 
-							int r2; 
+						double val = probabilityFunction(this.state.getNumberColors(),maxDegree);
+						if(Math.random() > val){
+							
+							int r1;
+							Color tmp;
+							Color bis;
+							ArrayList<Edge> vc;
 							do{
-								r1 = generator.randomValue(0, processus.size()-1); 
-								r2 = generator.randomValue(0, processus.size()-1);
-							}while(r1 == r2);
-							ArrayList<VertexController> vc = new ArrayList<VertexController>(processus);
-							Color tmp = vc.get(r1).getVertex().getInfo().getCol();
-							Color bis = vc.get(r2).getVertex().getInfo().getCol();
-							vc.get(r1).getVertex().getInfo().setCol(bis);
-							vc.get(r2).getVertex().getInfo().setCol(tmp);
+							r1 = generator.randomValue(0, edges.size()-1); 
+							vc = new ArrayList<Edge>(edges);
+							tmp = vc.get(r1).getStart().getInfo().getCol();
+							bis = vc.get(r1).getEnd().getInfo().getCol();
+							}while(tmp.equals(bis));
+							vc.get(r1).getStart().getInfo().setCol(bis);
+							vc.get(r1).getEnd().getInfo().setCol(tmp);
 							System.out.println(val);
 						}else{
-						Color c = generator.giveNewRandomColor(state.getCollectionColors());
-						//System.out.println("Thread Master decides to generate a new Color" + c );
-						state.addColor(c);
+							if(this.state.getNumberColors() < this.maxDegree + 1){
+								Color c = generator.giveNewRandomColor(state.getCollectionColors());
+								state.addColor(c);
+							}
 						}
 						counter = 0;
 					}
@@ -129,9 +133,8 @@ public class MasterController extends Thread{
 		this.coloration.end();
 	}
 	
-	private double probabilityFunction(double val){
-		int dim = edges.size();
-		return Math.exp((-1.0)*val);
+	private double probabilityFunction(int nbColor,double val){
+		return Math.exp((-1.0)*nbColor/val);
 	}
 	private int[] getRepartionColor(Color[] availableColor,Collection<VertexController> neighbours ) throws InterruptedException{
 		
@@ -147,6 +150,15 @@ public class MasterController extends Thread{
 
 		}
 		return repartition;
+	}
+	
+	private int maxdegree(Collection<VertexController> liste){
+		int max = Integer.MIN_VALUE;
+		for(VertexController v : liste){
+			int degree = v.getVertex().getDegree();
+			if(degree > max) max = degree;
+		}
+		return max;
 	}
 	
 }
