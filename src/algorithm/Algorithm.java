@@ -48,9 +48,19 @@ public abstract class Algorithm extends Observable{
 	
 	protected Statictics stats;
 	public abstract void compute(); // démarrage de l'algorithme
-	protected abstract AResult sendAResult(); // résultat de l'algorithme
+	protected abstract String sendAResult(); // résultat de l'algorithme
+	private long start;
+	protected long duration;
+	
+	public Algorithm(){
+		
+		this.start = System.currentTimeMillis();
+		this.duration = 0;
+	}
+	
 	public void NotifyEnd() {
 		// TODO Stub de la méthode généré automatiquement
+		this.duration = System.currentTimeMillis() - start;
 		this.setChanged();
 		this.notifyObservers(this.sendAResult());
 		this.t.cancel();

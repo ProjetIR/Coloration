@@ -36,7 +36,7 @@ public class RandomDisposition extends Algorithm {
 	}
 
 	@Override
-	protected AResult sendAResult() {
+	protected String sendAResult() {
 		// TODO Stub de la méthode généré automatiquement
 		return null;
 	}

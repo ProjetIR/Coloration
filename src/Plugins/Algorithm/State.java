@@ -8,10 +8,14 @@ import java.util.HashSet;
 public class State {
 
 	private ArrayList<Color> colors;
+	private double temp;
+	private int maxDegree;
 
-	public State(ArrayList<Color> colors) {
+	public State(ArrayList<Color> colors,double temp,int maxDegree) {
 		super();
 		this.colors = colors;
+		this.temp = temp;
+		this.maxDegree = maxDegree;
 	}
 
 	public Color[] getColors() {
@@ -21,6 +25,10 @@ public class State {
 		}
 		return tab;
 	}
+
+	
+	
+	
 
 	public Collection<Color> getCollectionColors() {
 
@@ -35,6 +43,14 @@ public class State {
 		
 		return colors.size();
 	}
+	
+	public double getTemperature(){
+		return this.temp;
+	}
+	
+	public void setTemperature(double newTemp){
+		this.temp = newTemp;
+	}
 	@Override
 	public String toString() {
 		// TODO Stub de la méthode généré automatiquement
@@ -44,6 +60,12 @@ public class State {
 		}
 		return s;
 	}
+
+	public int getMaxDegree() {
+		// TODO Auto-generated method stub
+		return maxDegree;
+	}
+	
 	
 	
 	

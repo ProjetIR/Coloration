@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Observable;
 import java.util.Timer;
 
+import statictics.IO.StatisticsWriter;
+
 import Model.Graphe;
 import UI.Task;
 
@@ -18,6 +20,9 @@ public class Statictics extends Observable{
 		this.g = g;
 		this.t = new Timer();
 		this.obs = new ArrayList<Observator>();
+		this.addObservator(new ColorVertexObservator(g));
+		this.addObservator(new ConflictsObservator(g));
+
 	}
 	
 	public boolean addObservator(Observator ob){

@@ -7,7 +7,7 @@ import algorithm.Algorithm;
 public class IteratifColorationAlgorithm extends Algorithm {
 
 	private Graphe g;
-	
+	private IteratifColoration it;
 	
 	
 	public IteratifColorationAlgorithm(Graphe g) {
@@ -18,14 +18,14 @@ public class IteratifColorationAlgorithm extends Algorithm {
 	@Override
 	public void compute() {
 		// TODO Stub de la méthode généré automatiquement
-		IteratifColoration it = new IteratifColoration(this,g);
+		it = new IteratifColoration(this,g);
 		it.start();
 	}
 
 	@Override
-	protected AResult sendAResult() {
+	protected String sendAResult() {
 		// TODO Stub de la méthode généré automatiquement
-		return null;
+		return "";
 	}
 
 }

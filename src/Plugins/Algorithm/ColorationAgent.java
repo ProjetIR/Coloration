@@ -3,20 +3,28 @@ package Plugins.Algorithm;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+
+
+
 import algorithm.Algorithm;
+
+
+
+
 import Model.GraphException;
 import Model.Graphe;
 import Model.Vertex;
 
-public class ColorationAlgorithm  extends Algorithm {
+public class ColorationAgent  extends Algorithm {
 	
 	private Graphe g;
-	private ArrayList<VertexController> processus;
+	private ArrayList<VertexMin> processus;
+	private ArrayList<VertexColorMax> agents;
 	private State state;
-	private MasterController master;
+	private MasterAgent master;
 	
 
-	public ColorationAlgorithm(Graphe g){
+	public ColorationAgent(Graphe g){
 		super();
 		try {
 			this.g = g;
@@ -24,17 +32,22 @@ public class ColorationAlgorithm  extends Algorithm {
 			int numberOfVertices = g.getVertexNumber();
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
+			col.add(Color.blue);
 			state = new State(col,0,maxdegree(this.g.getAllVertex()));
-			processus = new ArrayList<VertexController>();
+			processus = new ArrayList<VertexMin>();
+			agents = new ArrayList<VertexColorMax>();
 			for(Vertex v : g.getAllVertex()){
 				System.out.println("Vertex "+v+" , degree = "+v.getDegree());
 				int degree = v.getDegree();
 				int prior = givePriority(degree, numberOfVertices);
-				VertexController vc = new VertexController(v, g.getNeighbours(v), state);
+				VertexMin vc = new VertexMin(v, g.getNeighbours(v), state,false);
+				VertexColorMax vcmax = new VertexColorMax(v, g.getNeighbours(v), state,true);
 				vc.setPriority(prior);
+				vcmax.setPriority(prior);
 				processus.add(vc);
+				agents.add(vcmax);
 			}
-			this.master = new MasterController(this,processus,g.getAllEdges(), state, 3);
+			this.master = new MasterAgent(this,processus,agents,g.getAllEdges(), state, 3);
 		} catch (GraphException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -53,7 +66,11 @@ public class ColorationAlgorithm  extends Algorithm {
 		for(Thread p : processus){
 			p.start();
 		}
+		for(Thread p : agents){
+			p.start();
+		}
 		this.master.start();
+	
 
 	}
 	

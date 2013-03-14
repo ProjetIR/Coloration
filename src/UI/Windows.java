@@ -18,6 +18,11 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Timer;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
+
+import statictics.Statictics;
+
 import algorithm.Algorithm;
 import algorithm.AlgorithmHandler;
 import Log.TextAreaHandler;
@@ -27,6 +32,7 @@ import Model.InfoVertex;
 import Plugins.LoadPlugins;
 import UI.ListenerUI.AlgorithmListener;
 import UI.ListenerUI.BenchmarkLoad;
+import UI.ListenerUI.ClearListener;
 import UI.ListenerUI.CloseWindows;
 import UI.ListenerUI.GenerateGraph;
 import UI.ListenerUI.LoadListener;
@@ -51,6 +57,7 @@ public class Windows extends Frame {
 	private LogText text; // une zone de texte qui fait office de log
 	private ArrayList<Class> listeAlgorithme;// une liste d'algorithme chargé
 	private AlgorithmHandler handler; // gestionnaire d'algorithme
+	private Statictics stats; // statistique sur le graphe
 	public static Logger log = Logger.getLogger("LOG APPLICATION"); // une classe qui génére les messages
 	
 	public Windows(String title) throws HeadlessException {
@@ -86,7 +93,8 @@ public class Windows extends Frame {
 			this.iv = new InfoVertex(Color.red, new Point(4,5),10);
 			this.ie = new InfoEdge(Color.black, 1);
 			this.visu =  new GraphVisualizer(this.graphe, this.doubleBuffer,this.iv,this.ie);
-			this.handler = new AlgorithmHandler(this.graphe);
+			this.handler = new AlgorithmHandler(this.graphe,this);
+			this.stats = new Statictics(this.graphe);
 			//************************************************************************************
 			// Création d'un système de log
 			Windows.log.addHandler(new TextAreaHandler(text));
@@ -144,7 +152,9 @@ public class Windows extends Frame {
 		MenuItem itemSave = new MenuItem("Save As");
 		itemSave.addActionListener(new SaveListener(this));
 		m.add(itemSave);
-		m.add(new MenuItem("Print"));
+		MenuItem clear = new MenuItem("Clear Graphe");
+		clear.addActionListener(new ClearListener(this));
+		m.add(clear);
 		m.addSeparator();
 		MenuItem quitter = new MenuItem("Quit");
 		quitter.addActionListener(new CloseWindows());
@@ -229,6 +239,11 @@ public class Windows extends Frame {
 
 	public void setVisu(GraphVisualizer visu) {
 		this.visu = visu;
+	}
+
+	public void showResults(String arg1) {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(this,arg1);
 	}
 	
 	

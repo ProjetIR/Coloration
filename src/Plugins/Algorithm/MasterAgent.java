@@ -13,10 +13,11 @@ import Model.Vertex;
 import Model.Generator.RandomGenerator;
 import Utils.RandomBetween;
 
-public class MasterController extends Thread{
+public class MasterAgent extends Thread{
 	
 	private Algorithm coloration;
-	private Collection<VertexController> processus;
+	private Collection<VertexMin> processus;
+	private Collection<VertexColorMax> agents;
 	private Collection<Edge> edges;
 	private Plugins.Algorithm.State state;
 	private int totalConflits;
@@ -24,17 +25,22 @@ public class MasterController extends Thread{
 	private int nbWakeUp;
 	private int counter;
 	private RandomBetween generator;
+	private static int MINIMISATION = 0;
+	private static int COLORMAX = 1;
+	private int currentStep;
 	
-	public MasterController(Algorithm coloration,Collection<VertexController> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
+	public MasterAgent(Algorithm coloration,Collection<VertexMin> processus,Collection<VertexColorMax> agents,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
 		super();
 		this.coloration = coloration;
 		this.processus = processus;
+		this.agents = agents;
 		this.edges = edges;
 		this.state = state;
 		totalConflits = 0;
 		oldTotalConflits = 0;
 		this.nbWakeUp = nbWakeUp;
 		this.generator = new RandomBetween(System.currentTimeMillis());
+		this.currentStep = 0;
 	}
 
 	@Override
@@ -63,11 +69,29 @@ public class MasterController extends Thread{
 
 					counter++;
 					if(counter == nbWakeUp){
-
-						Color c = generator.giveNewRandomColor(state.getCollectionColors());
-						state.addColor(c);
-						state.setTemperature(state.getNumberColors());
-						System.out.println("Ajout couleur; temperature = "+state.getTemperature());
+						currentStep = (currentStep+1)%2;
+						
+						if(currentStep == MINIMISATION){
+							System.out.println("Passage maximisation couleur voisinage");
+							for(VertexMin t : processus){
+								t.Sleeping();
+							}
+							for(VertexColorMax t : agents){
+								t.Wake();
+							}
+						}else{
+							
+							System.out.println("Passage minimisation conflits");
+							Color c = generator.giveNewRandomColor(state.getCollectionColors());
+							state.addColor(c);
+							for(VertexMin t : processus){
+								t.Wake();
+							}
+							for(VertexColorMax t : agents){
+								t.Sleeping();
+							}
+						}
+						
 
 						counter = 0;
 					}
@@ -104,7 +128,10 @@ public class MasterController extends Thread{
 
 	private void interruptAll() {
 		// TODO Stub de la méthode généré automatiquement
-		for(VertexController t : processus){
+		for(VertexMin t : processus){
+			t.interrupt();
+		}
+		for(VertexColorMax t : agents){
 			t.interrupt();
 		}
 		this.interrupt();
@@ -116,11 +143,11 @@ public class MasterController extends Thread{
 	}
 	
 
-	private int[] getRepartionColor(Color[] availableColor,Collection<VertexController> neighbours ) throws InterruptedException{
+	private int[] getRepartionColor(Color[] availableColor,Collection<VertexMin> neighbours ) throws InterruptedException{
 		
 		int[] repartition = new int[availableColor.length];
 		for(int i = 0;i<availableColor.length;i++){
-			for(VertexController v : neighbours){
+			for(VertexMin v : neighbours){
 			
 					if(availableColor[i].equals(v.getVertex().getInfo().getCol())){
 						repartition[i]++;

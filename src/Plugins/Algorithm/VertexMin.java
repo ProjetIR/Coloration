@@ -7,21 +7,22 @@ import java.util.Collection;
 import Model.Vertex;
 import Utils.RandomBetween;
 
-public class VertexController extends Thread {
+public class VertexMin extends Thread {
 	
 	private Vertex v;
 	private Collection<Vertex> neighbours;
 	private Plugins.Algorithm.State state;
 	private RandomBetween generator;
+	private boolean sleep;
 
 	
-	public VertexController(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state) {
+	public VertexMin(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state,boolean sleep) {
 		super();
 			this.v = v;
 			this.neighbours = neighbours;
 			this.state = state;
 			this.generator = new RandomBetween(System.currentTimeMillis());
-			
+			this.sleep = sleep;
 	}
 	
 	public Vertex getVertex(){
@@ -52,20 +53,12 @@ public class VertexController extends Thread {
 				int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
 				int argmin = argMIN(repartition);
 				if(repartition[posColor] != 0) {
-					int selectedPosition = generator.randomValue(0, colors.length-1);
-					int deltaE = repartition[selectedPosition]-repartition[posColor];
-					if(deltaE < 0){
+					
+					if(repartition[posColor] > repartition[argmin]){
 						synchronized (this.v) {
-								this.v.getInfo().setCol(colors[selectedPosition]);	
+							this.v.getInfo().setCol(colors[argmin]);	
 						}
-					}else{
-						double val = probabilityFunction(((Plugins.Algorithm.State) state).getMaxDegree(), state.getTemperature());
-						System.out.println(val);
-						if(Math.random() < val){
-							synchronized (this.v) {
-								this.v.getInfo().setCol(colors[selectedPosition]);	
-						}
-						}
+						
 					}
 				}
 				Thread.sleep(10);
@@ -77,7 +70,13 @@ public class VertexController extends Thread {
 			//System.out.println("Mort du Thread vertex "+this.v.getId());
 		}
 	}
+	public void Wake(){
+		this.sleep = false;
+	}
 	
+	public void Sleeping(){
+		this.sleep = true;
+	}
 	private int[] getRepartionColor(Color[] availableColor,Collection<Vertex> neighbours ) throws InterruptedException{
 		
 		int[] repartition = new int[availableColor.length];
@@ -115,8 +114,14 @@ public class VertexController extends Thread {
 		return -1;
 	}
 	
-	private double probabilityFunction(double d ,double temp){
-		return Math.exp((-1.0)*(0.66)*temp);
+	public int nbConflicts(){
+		int val = 0;
+		for(Vertex v : this.neighbours){
+			if(this.v.getInfo().getCol().equals(v.getInfo().getCol())){
+				val++;
+			}
+		}
+		return val;
 	}
 
 	

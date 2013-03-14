@@ -28,12 +28,14 @@ public class AlgorithmHandler implements Observer{
 	private Graphe g;
 	private ConcurrentLinkedQueue<Algorithm> queue;
 	private Algorithm current;
+	private Windows win;
 	
-	public AlgorithmHandler(Graphe g) {
+	public AlgorithmHandler(Graphe g,Windows win) {
 		super();
 		this.g = g;
 		this.queue = new ConcurrentLinkedQueue<Algorithm>();
 		this.current = null;
+		this.win = win;
 	}
 	/**
 	 * A partir d'une classe, il construit une instance de manière dynamique et la place dans la file
@@ -96,6 +98,10 @@ public class AlgorithmHandler implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Stub de la méthode généré automatiquement
+		if( arg instanceof String){ // Réception résultats de l'algorithme
+			String arg1 = (String)arg;
+			this.win.showResults(arg1);
+		}
 		this.current = null;
 		this.run();
 		
