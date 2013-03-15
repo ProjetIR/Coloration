@@ -13,7 +13,9 @@ import javax.swing.Timer;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Millisecond;
 /**
@@ -27,18 +29,14 @@ public class BarChart extends Panel {
 */
 	
 private DefaultCategoryDataset dataset;
-public BarChart() {
+private ChartPanel chartPanel;
+private JFreeChart chart;
+public BarChart(String title) {
 super(new BorderLayout());
 
 dataset = new DefaultCategoryDataset();
-dataset.addValue(1.0, "Row 1", "Column 1");
-dataset.addValue(5.0, "Row 1", "Column 2");
-dataset.addValue(3.0, "Row 1", "Column 3");
-dataset.addValue(2.0, "Row 2", "Column 1");
-dataset.addValue(3.0, "Row 2", "Column 2");
-dataset.addValue(2.0, "Row 2", "Column 3");
-JFreeChart chart = ChartFactory.createBarChart(
-"Bar Chart Demo", // chart title
+chart = ChartFactory.createBarChart(
+title, // chart title
 "Category", // domain axis label
 "Value", // range axis label
 dataset, // data
@@ -47,7 +45,7 @@ true, // include legend
 true, // tooltips?
 false // URLs?
 );
-ChartPanel chartPanel = new ChartPanel(chart, true);
+chartPanel = new ChartPanel(chart, false);
 chartPanel.setPreferredSize(new Dimension(500, 270));
 chart.setBackgroundPaint(Color.white);
 chartPanel.setBorder(BorderFactory.createCompoundBorder(
@@ -57,46 +55,17 @@ add(chartPanel);
 }
 
 
-private void addTotalObservation(double y) {
-dataset.addValue(y, "Row 1", "Column 1");
+public void addTotalObservation(Color[] tab,int[] values) {
+	
+dataset.addValue(1, "Row 1", "Color 1");	
+dataset.addValue(2, "Row 1", "Color 2");
+CategoryPlot plot = (CategoryPlot)chart.getPlot();
+CustomRenderer renderer = new CustomRenderer(tab);
+renderer.setDrawBarOutline(false);
+plot.setRenderer(renderer);
 this.invalidate();
 }
-/**
-* Adds an observation to the ’free memory’ time series.
-*
-* @param y the free memory.
-*/
-//private void addFreeObservation(double y) {
-//this.free.add(new Millisecond(), y);
-//}
-/**
-* The data generator.
-*/
-class DataGenerator extends Timer implements ActionListener {
-/**
-* Constructor.
-*
-* @param interval the interval (in milliseconds)
-*/
-DataGenerator(int interval) {
-super(interval, null);
-addActionListener(this);
-}
-/**
-* Adds a new free/total memory reading to the dataset.
-*
-* @param event the action event.
-*/
-public void actionPerformed(ActionEvent event) {
 
-addTotalObservation(Math.random()*100);
-}
-}
-/**
-* Entry point for the sample application.
-*
-* @param args ignored.
-*/
 
 }
 

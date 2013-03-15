@@ -7,9 +7,9 @@ import java.util.TimerTask;
 
 import javax.swing.JOptionPane;
 
-import statictics.ColorVertexObservator;
-import statictics.Statictics;
-import statictics.IO.StatisticsWriter;
+import statistics.ColorVertexObservator;
+import statistics.Statistics;
+import statistics.IO.StatisticsWriter;
 
 import UI.Task;
 /**
@@ -46,7 +46,7 @@ class WaitingCloseAllThread extends TimerTask {
  */
 public abstract class Algorithm extends Observable{
 	
-	protected Statictics stats;
+	protected Statistics stats;
 	public abstract void compute(); // démarrage de l'algorithme
 	protected abstract String sendAResult(); // résultat de l'algorithme
 	private long start;

@@ -1,4 +1,4 @@
-package statictics;
+package statistics;
 
 import java.awt.Color;
 import java.util.Collection;

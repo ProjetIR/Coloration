@@ -1,12 +1,12 @@
-package statictics;
+package statistics;
 
 import java.util.TimerTask;
 
 public class StatisticsTask extends TimerTask{
 
-	private Statictics stats;
+	private Statistics stats;
 
-	public StatisticsTask(Statictics stats) {
+	public StatisticsTask(Statistics stats) {
 		super();
 		this.stats = stats;
 	}

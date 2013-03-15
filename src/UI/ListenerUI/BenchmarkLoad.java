@@ -59,6 +59,7 @@ public class BenchmarkLoad implements ActionListener {
 					this.f.getVisu().setGraphe(g);
 					this.f.getVisu().addUIComponents();
 					this.f.getHandler().setGraphe(g);
+					this.f.getStatistics().setGraphe(g);
 					Windows.log.info("Activation de la gestion dynamique");
 					Windows.log.info("Nouveau Graphe |V| = "+this.f.getGraphe().getVertexNumber()+" |E| = "+this.f.getGraphe().getEdgesNumber());
 	    		} catch (Exception e1) {

@@ -1,4 +1,4 @@
-package statictics.IO;
+package statistics.IO;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.util.Observable;
 import java.util.Observer;
 
-import statictics.Record;
+import statistics.Record;
 
 public class StatisticsWriter implements Observer{
 

@@ -1,4 +1,4 @@
-package statictics;
+package statistics;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,4 +28,12 @@ public abstract class Observator {
 		return values.get(values.size()-1);
 	}
 
+	public Graphe getGraphe() {
+		return this.g;
+	}
+
+
+	public void setGraphe(Graphe graphe) {
+		this.g = graphe;
+	}
 }

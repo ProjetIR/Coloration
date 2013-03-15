@@ -1,4 +1,4 @@
-package statictics;
+package statistics;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,6 +15,10 @@ public class Record {
 	public Collection<String> getRecordName(){
 		
 		return this.data.keySet();
+	}
+	
+	public Number getData(String name){
+		return data.get(name);
 	}
 	
 	public Collection<Number> getValues(){

@@ -3,9 +3,7 @@ package UI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.GridLayout;
 import java.awt.HeadlessException;
-import java.awt.LayoutManager;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -21,7 +19,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import statictics.Statictics;
+import statistics.Statistics;
 
 import algorithm.Algorithm;
 import algorithm.AlgorithmHandler;
@@ -38,6 +36,8 @@ import UI.ListenerUI.GenerateGraph;
 import UI.ListenerUI.LoadListener;
 import UI.ListenerUI.ResizeEvent;
 import UI.ListenerUI.SaveListener;
+import UI.ListenerUI.StartRecordListener;
+import UI.ListenerUI.StopRecordListener;
 import UIGraph.GraphVisualizer;
 /**
  * Classe principale de l'application qui permet de générer un graphe, de le charger et d'intérargir
@@ -57,7 +57,7 @@ public class Windows extends Frame {
 	private LogText text; // une zone de texte qui fait office de log
 	private ArrayList<Class> listeAlgorithme;// une liste d'algorithme chargé
 	private AlgorithmHandler handler; // gestionnaire d'algorithme
-	private Statictics stats; // statistique sur le graphe
+	private Statistics stats; // statistique sur le graphe
 	public static Logger log = Logger.getLogger("LOG APPLICATION"); // une classe qui génére les messages
 	
 	public Windows(String title) throws HeadlessException {
@@ -84,17 +84,20 @@ public class Windows extends Frame {
 			this.text.setLocation(0, this.doubleBuffer.getHeight()+50);
 			this.addComponentListener(new ResizeEvent(this.doubleBuffer, this.text));
 			InitializeMenus();
-			//***********************************************************************************
-			//Initialisation Menu Algorithm
-			initialisationMenuAlgorithm();
-			//************************************************************************************
 			//Initialisation des outils et de la structure de données
 			this.graphe = new Graphe();
 			this.iv = new InfoVertex(Color.red, new Point(4,5),10);
 			this.ie = new InfoEdge(Color.black, 1);
 			this.visu =  new GraphVisualizer(this.graphe, this.doubleBuffer,this.iv,this.ie);
 			this.handler = new AlgorithmHandler(this.graphe,this);
-			this.stats = new Statictics(this.graphe);
+			this.stats = new Statistics(this.graphe);
+			//***********************************************************************************
+			//Initialisation Menu Algorithm
+			initialisationMenuAlgorithm();
+			//***********************************************************************************
+			//Initialisation Menu Statictics
+			initialisationMenuStatistics();
+			//************************************************************************************
 			//************************************************************************************
 			// Création d'un système de log
 			Windows.log.addHandler(new TextAreaHandler(text));
@@ -176,6 +179,18 @@ public class Windows extends Frame {
 		
 	}
 	
+	private void initialisationMenuStatistics(){
+		Menu m = new Menu("Statictics");
+		MenuItem start = new MenuItem("Start record");
+		start.addActionListener(new StartRecordListener(this, this.stats));
+		m.add(start);
+		MenuItem stop = new MenuItem("Stop record");
+		stop.addActionListener(new StopRecordListener(this.stats));
+		m.add(stop);
+		mbar.add(m);
+		
+	}
+	
 	
 	public Collection<Class> getAlgorithme(){
 		return this.listeAlgorithme;
@@ -193,7 +208,13 @@ public class Windows extends Frame {
 		this.graphe = graphe;
 	}
 
-
+	public Statistics getStatistics(){
+		return this.stats;
+	}
+	
+	public void  setStatistics(Statistics stats){
+		this.stats = stats;
+	}
 
 	public DoubleBuffer getDoubleBuffer() {
 		return doubleBuffer;

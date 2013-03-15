@@ -44,6 +44,7 @@ public class GenerationListener extends MouseAdapter {
 			win.getVisu().setGraphe(g);
 			win.getVisu().addUIComponents();
 			win.getHandler().setGraphe(g);
+			win.getStatistics().setGraphe(g);
 			Windows.log.info("Activation de la gestion dynamique");
 			Windows.log.info("Nouveau Graphe |V| = "+win.getGraphe().getVertexNumber()+" |E| = "+win.getGraphe().getEdgesNumber());
 			dial.setVisible(false);

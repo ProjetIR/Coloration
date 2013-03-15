@@ -1,27 +1,31 @@
-package statictics;
+package statistics;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Observable;
 import java.util.Timer;
 
-import statictics.IO.StatisticsWriter;
+import algorithm.AlgorithmHandler;
+
+import statistics.IO.StatisticsWriter;
 
 import Model.Graphe;
 import UI.Task;
 
-public class Statictics extends Observable{
+public class Statistics extends Observable{
 
 	private Graphe g;
 	private ArrayList<Observator> obs;
 	private Timer t;
+	public static final int TIME = 1000;
 	
-	public Statictics(Graphe g){
+	public Statistics(Graphe g){
 		this.g = g;
 		this.t = new Timer();
 		this.obs = new ArrayList<Observator>();
 		this.addObservator(new ColorVertexObservator(g));
 		this.addObservator(new ConflictsObservator(g));
+		this.addObservator(new ThreadObservator(g));
 
 	}
 	
@@ -46,13 +50,16 @@ public class Statictics extends Observable{
 	}
 	
 	public void startRecord(int delai){
-		
+		if(t == null){
+			t = new Timer();
+		}
 		t.scheduleAtFixedRate(new StatisticsTask(this), new Date(System.currentTimeMillis()),delai);
 	}
 	
 	public void stopRecord(){
 		
 		t.cancel();
+		t = null;
 		this.setChanged();
 		this.notifyObservers(null);
 	}
@@ -65,5 +72,18 @@ public class Statictics extends Observable{
 		}
 		this.setChanged();
 		this.notifyObservers(c);
+	}
+	
+
+	public Graphe getGraphe() {
+		return this.g;
+	}
+
+
+	public void setGraphe(Graphe graphe) {
+		this.g = graphe;
+		for(Observator ob : this.obs){
+			ob.setGraphe(graphe);
+		}
 	}
 }

@@ -28,6 +28,7 @@ public class ClearListener implements ActionListener {
 		this.win.getVisu().setGraphe(g);
 		this.win.getVisu().addUIComponents();
 		this.win.getHandler().setGraphe(g);
+		this.win.getStatistics().setGraphe(g);
 		Windows.log.info("Activation de la gestion dynamique");
 		Windows.log.info("Nouveau Graphe |V| = "+this.win.getGraphe().getVertexNumber()+" |E| = "+this.win.getGraphe().getEdgesNumber());
 	}

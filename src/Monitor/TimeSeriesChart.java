@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+
 import javax.swing.BorderFactory;
 import javax.swing.Timer;
 import org.jfree.chart.ChartPanel;
@@ -17,6 +19,7 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.RectangleInsets;
@@ -30,7 +33,7 @@ import org.jfree.ui.RectangleInsets;
 * DO NOT MAKE CHANGES WITHOUT UPDATING THE
  GUIDE ALSO!!
 */
-public class MemoryUsageDemo extends Panel
+public class TimeSeriesChart extends Panel
  {
 /** Time series for total memory used. */
 private TimeSeries total;
@@ -41,19 +44,19 @@ private TimeSeries free;
 *
 * @param maxAge the maximum age (in milliseconds).
 */
-public MemoryUsageDemo() {
+public TimeSeriesChart(String title, String xlab,String ylab) {
 super(new BorderLayout());
 // create two series that automatically discard data more than 30
  // seconds old...
-this.total = new TimeSeries("Total Memory", Millisecond.class);
+this.total = new TimeSeries(title, Second.class);
 //this.total.setMaximumItemAge(maxAge);
 //this.free = new TimeSeries("Free Memory", Millisecond.class);
 //this.free.setMaximumItemAge(maxAge);
 TimeSeriesCollection dataset = new TimeSeriesCollection();
 dataset.addSeries(this.total);
 //dataset.addSeries(this.free);
-DateAxis domain = new DateAxis("Time");
-NumberAxis range = new NumberAxis("Memory");
+DateAxis domain = new DateAxis(xlab);
+NumberAxis range = new NumberAxis(ylab);
 domain.setTickLabelFont(new Font("SansSerif", Font.PLAIN, 12));
 range.setTickLabelFont(new Font("SansSerif", Font.PLAIN, 12));
 domain.setLabelFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -73,7 +76,7 @@ domain.setLowerMargin(0.0);
 domain.setUpperMargin(0.0);
 domain.setTickLabelsVisible(true);
 range.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-JFreeChart chart = new JFreeChart("JVM Memory Usage",
+JFreeChart chart = new JFreeChart("",
 new Font("SansSerif", Font.BOLD, 24), plot, true);
 chart.setBackgroundPaint(Color.white);
 ChartPanel chartPanel = new ChartPanel(chart);
@@ -87,46 +90,10 @@ add(chartPanel);
 *
 * @param y the total memory used.
 */
-private void addTotalObservation(double y) {
-this.total.add(new Millisecond(), y);
+public void addTotalObservation(Number y) {
+this.total.addOrUpdate(new Second(), y);
 }
-/**
-* Adds an observation to the ’free memory’ time series.
-*
-* @param y the free memory.
-*/
-//private void addFreeObservation(double y) {
-//this.free.add(new Millisecond(), y);
-//}
-/**
-* The data generator.
-*/
-class DataGenerator extends Timer implements ActionListener {
-/**
-* Constructor.
-*
-* @param interval the interval (in milliseconds)
-*/
-DataGenerator(int interval) {
-super(interval, null);
-addActionListener(this);
-}
-/**
-* Adds a new free/total memory reading to the dataset.
-*
-* @param event the action event.
-*/
-public void actionPerformed(ActionEvent event) {
-System.out.println(Thread.currentThread().getThreadGroup());
-long t = 0;
-addTotalObservation(t);
-}
-}
-/**
-* Entry point for the sample application.
-*
-* @param args ignored.
-*/
+
 
 
 }
