@@ -3,6 +3,9 @@ package Plugins.Algorithm;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 
 
 
@@ -19,7 +22,6 @@ public class ColorationAgent  extends Algorithm {
 	
 	private Graphe g;
 	private ArrayList<VertexMin> processus;
-	private ArrayList<VertexColorMax> agents;
 	private State state;
 	private MasterAgent master;
 	
@@ -29,25 +31,19 @@ public class ColorationAgent  extends Algorithm {
 		try {
 			this.g = g;
 			this.setOneColor();
-			int numberOfVertices = g.getVertexNumber();
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
 			col.add(Color.blue);
-			state = new State(col,0,maxdegree(this.g.getAllVertex()));
+			ArrayList<Vertex> vertices = new ArrayList<Vertex>(g.getAllVertex());
+			Collections.sort(vertices,new DegreeComparatorDecroiss());
+			state = new State(col,0,maxdegree(vertices),tabDegree(vertices));
 			processus = new ArrayList<VertexMin>();
-			agents = new ArrayList<VertexColorMax>();
-			for(Vertex v : g.getAllVertex()){
+			for(Vertex v : vertices){
 				System.out.println("Vertex "+v+" , degree = "+v.getDegree());
-				int degree = v.getDegree();
-				int prior = givePriority(degree, numberOfVertices);
 				VertexMin vc = new VertexMin(v, g.getNeighbours(v), state,false);
-				VertexColorMax vcmax = new VertexColorMax(v, g.getNeighbours(v), state,true);
-				vc.setPriority(prior);
-				vcmax.setPriority(prior);
 				processus.add(vc);
-				agents.add(vcmax);
 			}
-			this.master = new MasterAgent(this,processus,agents,g.getAllEdges(), state, 3);
+			this.master = new MasterAgent(this,processus,g.getAllEdges(), state, 3);
 		} catch (GraphException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -64,9 +60,6 @@ public class ColorationAgent  extends Algorithm {
 	public void compute() {
 		// TODO Stub de la méthode généré automatiquement
 		for(Thread p : processus){
-			p.start();
-		}
-		for(Thread p : agents){
 			p.start();
 		}
 		this.master.start();
@@ -112,6 +105,19 @@ public class ColorationAgent  extends Algorithm {
 		return max;
 	}
 
-	
+    public int[] tabDegree(Collection<Vertex> vertices){
+    	HashSet<Integer> set = new HashSet<Integer>();
+    	for(Vertex v : vertices){
+    		set.add(new Integer(v.getDegree()));
+    	}
+    	Iterator<Integer> it = set.iterator();
+    	int [] tab = new int[set.size()];
+    	int cpt = 0;
+    	while(it.hasNext()){
+    		tab[cpt] = it.next().intValue();
+    		cpt++;
+    	}
+    	return tab;
+    }
 
 }

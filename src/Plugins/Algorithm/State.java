@@ -10,12 +10,16 @@ public class State {
 	private ArrayList<Color> colors;
 	private double temp;
 	private int maxDegree;
+	private int currentDegree;
+	private int[] tabDegree;
 
-	public State(ArrayList<Color> colors,double temp,int maxDegree) {
+	public State(ArrayList<Color> colors,double temp,int maxDegree,int[] tabDegree) {
 		super();
 		this.colors = colors;
 		this.temp = temp;
 		this.maxDegree = maxDegree;
+		this.currentDegree = maxDegree;
+		this.tabDegree = tabDegree;
 	}
 
 	public Color[] getColors() {
@@ -29,6 +33,20 @@ public class State {
 	
 	
 	
+
+	public int[] getTabDegree() {
+		return tabDegree;
+	}
+
+
+
+	public int getCurrentDegree() {
+		return currentDegree;
+	}
+
+	public void setCurrentDegree(int currentDegree) {
+		this.currentDegree = currentDegree;
+	}
 
 	public Collection<Color> getCollectionColors() {
 

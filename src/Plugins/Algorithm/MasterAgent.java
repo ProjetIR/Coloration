@@ -17,7 +17,6 @@ public class MasterAgent extends Thread{
 	
 	private Algorithm coloration;
 	private Collection<VertexMin> processus;
-	private Collection<VertexColorMax> agents;
 	private Collection<Edge> edges;
 	private Plugins.Algorithm.State state;
 	private int totalConflits;
@@ -25,22 +24,20 @@ public class MasterAgent extends Thread{
 	private int nbWakeUp;
 	private int counter;
 	private RandomBetween generator;
-	private static int MINIMISATION = 0;
-	private static int COLORMAX = 1;
-	private int currentStep;
-	
-	public MasterAgent(Algorithm coloration,Collection<VertexMin> processus,Collection<VertexColorMax> agents,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
+	private int cpt;
+
+	public MasterAgent(Algorithm coloration,Collection<VertexMin> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
 		super();
 		this.coloration = coloration;
 		this.processus = processus;
-		this.agents = agents;
 		this.edges = edges;
 		this.state = state;
 		totalConflits = 0;
 		oldTotalConflits = 0;
 		this.nbWakeUp = nbWakeUp;
 		this.generator = new RandomBetween(System.currentTimeMillis());
-		this.currentStep = 0;
+		this.cpt = 0;
+	
 	}
 
 	@Override
@@ -69,30 +66,14 @@ public class MasterAgent extends Thread{
 
 					counter++;
 					if(counter == nbWakeUp){
-						currentStep = (currentStep+1)%2;
-						
-						if(currentStep == MINIMISATION){
-							System.out.println("Passage maximisation couleur voisinage");
-							for(VertexMin t : processus){
-								t.Sleeping();
-							}
-							for(VertexColorMax t : agents){
-								t.Wake();
-							}
-						}else{
-							
-							System.out.println("Passage minimisation conflits");
+						if(cpt < state.getTabDegree().length){
+							state.setCurrentDegree(state.getTabDegree()[cpt]);
+							cpt++;
+						}else {
+							cpt=0;
 							Color c = generator.giveNewRandomColor(state.getCollectionColors());
 							state.addColor(c);
-							for(VertexMin t : processus){
-								t.Wake();
-							}
-							for(VertexColorMax t : agents){
-								t.Sleeping();
-							}
-						}
-						
-
+						}	
 						counter = 0;
 					}
 				}
@@ -129,9 +110,6 @@ public class MasterAgent extends Thread{
 	private void interruptAll() {
 		// TODO Stub de la méthode généré automatiquement
 		for(VertexMin t : processus){
-			t.interrupt();
-		}
-		for(VertexColorMax t : agents){
 			t.interrupt();
 		}
 		this.interrupt();

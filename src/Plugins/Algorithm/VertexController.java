@@ -59,7 +59,7 @@ public class VertexController extends Thread {
 								this.v.getInfo().setCol(colors[selectedPosition]);	
 						}
 					}else{
-						double val = probabilityFunction(((Plugins.Algorithm.State) state).getMaxDegree(), state.getTemperature());
+						double val = probabilityFunction(v.getDegree(), state.getTemperature());
 						System.out.println(val);
 						if(Math.random() < val){
 							synchronized (this.v) {
@@ -116,7 +116,7 @@ public class VertexController extends Thread {
 	}
 	
 	private double probabilityFunction(double d ,double temp){
-		return Math.exp((-1.0)*(0.66)*temp);
+		return Math.exp((-1.0)*(d)*temp);
 	}
 
 	

@@ -58,7 +58,9 @@ public class Statistics extends Observable{
 	
 	public void stopRecord(){
 		
-		t.cancel();
+		if(t != null){
+			t.cancel();
+		}
 		t = null;
 		this.setChanged();
 		this.notifyObservers(null);
