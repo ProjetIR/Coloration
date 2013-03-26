@@ -66,7 +66,7 @@ public class MasterController extends Thread{
 
 						Color c = generator.giveNewRandomColor(state.getCollectionColors());
 						state.addColor(c);
-						state.setTemperature(state.getNumberColors());
+						state.setTemperature(state.getTemperature()*0.9);
 						System.out.println("Ajout couleur; temperature = "+state.getTemperature());
 
 						counter = 0;

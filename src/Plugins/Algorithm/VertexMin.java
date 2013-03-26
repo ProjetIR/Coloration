@@ -3,7 +3,6 @@ package Plugins.Algorithm;
 import java.awt.Color;
 import java.util.Collection;
 import Model.Vertex;
-import Utils.RandomBetween;
 
 public class VertexMin extends Thread {
 	
@@ -57,9 +56,7 @@ public class VertexMin extends Thread {
 						
 					}
 				}
-				Thread.sleep(10);
-				
-					
+				Thread.sleep(10);	
 			}
 		} catch (InterruptedException e) {
 			// TODO Bloc catch généré automatiquement
