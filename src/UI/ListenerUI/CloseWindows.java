@@ -4,6 +4,11 @@ import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Listener permettant de fermer l'application
+ * @author KIEFFER
+ *
+ */
 public class CloseWindows implements ActionListener {
 
 	@Override

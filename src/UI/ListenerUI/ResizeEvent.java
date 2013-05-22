@@ -8,6 +8,11 @@ import java.awt.event.ComponentEvent;
 import UI.DoubleBuffer;
 import UI.LogText;
 
+/**
+ * Classe permettant la gestion de l'évènement resize de la fenêtre
+ * @author KIEFFER
+ *
+ */
 public class ResizeEvent extends ComponentAdapter {
 
 	private DoubleBuffer buffer;

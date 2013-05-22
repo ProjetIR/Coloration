@@ -6,7 +6,11 @@ import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
+/**
+ * Simple classe de test pour la bibliothèque JFreeChart
+ * @author KIEFFER
+ *
+ */
 public class Test {
 
 	public static void main(String[] args) {

@@ -16,6 +16,11 @@ import UI.DoubleBuffer;
 import UI.Windows;
 import UIGraph.GraphVisualizer;
 
+/**
+ * Listener permettant de charger une graphe issu des challenges DIMACS
+ * @author KIEFFER
+ *
+ */
 public class BenchmarkLoad implements ActionListener {
 
 	

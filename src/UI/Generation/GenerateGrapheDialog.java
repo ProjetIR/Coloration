@@ -21,6 +21,9 @@ import Model.Graphe;
 import UI.Windows;
 import Utils.NewComposantAWT.NumericUpDown;
 
+/**
+ * Boite de dialogue pour la génération d'un graphe aléatoire
+ */
 public class GenerateGrapheDialog extends Dialog {
 	
 	private Windows parent;

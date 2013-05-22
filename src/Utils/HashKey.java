@@ -2,6 +2,11 @@ package Utils;
 
 import java.io.Serializable;
 
+/**
+ * Classe enveloppe pour les identifiants
+ * @author KIEFFER
+ *
+ */
 public class HashKey implements Serializable{
 
 	/**

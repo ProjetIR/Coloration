@@ -5,6 +5,11 @@ import java.awt.Dialog;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Simple listener pour fermer une fenêtre
+ * @author KIEFFER
+ *
+ */
 public class CancelListener extends MouseAdapter {
 
 	private Dialog f;

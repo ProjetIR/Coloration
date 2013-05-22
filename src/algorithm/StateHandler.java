@@ -1,5 +1,10 @@
 package algorithm;
 
+/**
+ * Classe permettant de décrire les informations dans la file d'algorithmes
+ * @author KIEFFER
+ *
+ */
 public class StateHandler {
 
 	private int numberInQueue;

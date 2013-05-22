@@ -5,7 +5,12 @@ import java.awt.Graphics2D;
 import java.io.Serializable;
 import java.util.Observable;
 
-
+/**
+ * Classe représentant la notion d'information 
+ * Par défaut, la couleur, le poids,etc... d'un objet quelconque
+ * @author KIEFFER
+ *
+ */
 public abstract class Info extends Observable implements Serializable{
 	
 	/**

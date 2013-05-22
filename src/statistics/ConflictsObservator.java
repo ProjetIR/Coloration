@@ -5,6 +5,11 @@ import java.awt.Color;
 import Model.Edge;
 import Model.Graphe;
 
+/**
+ * Classe permettant d'observer le nombre de conflicts à un instant
+ * @author KIEFFER
+ *
+ */
 public class ConflictsObservator extends Observator {
 
 	public ConflictsObservator(Graphe g) {

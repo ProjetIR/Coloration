@@ -5,6 +5,11 @@ import java.awt.TextField;
 import java.awt.event.TextEvent;
 import java.awt.event.TextListener;
 
+/**
+ * Nouveau composant AWT
+ * @author KIEFFER
+ *
+ */
 public class NumericUpDown extends TextField implements TextListener{
 
 	private int value;

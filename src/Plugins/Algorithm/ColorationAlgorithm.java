@@ -3,6 +3,8 @@ package Plugins.Algorithm;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+
 import algorithm.Algorithm;
 import Model.GraphException;
 import Model.Graphe;
@@ -11,9 +13,9 @@ import Model.Vertex;
 public class ColorationAlgorithm  extends Algorithm {
 	
 	private Graphe g;
-	private ArrayList<VertexController> processus;
+	private ArrayList<VertexAgent> processus;
 	private State state;
-	private MasterController master;
+	private MasterAgent master;
 	
 
 	public ColorationAlgorithm(Graphe g){
@@ -21,20 +23,16 @@ public class ColorationAlgorithm  extends Algorithm {
 		try {
 			this.g = g;
 			this.setOneColor();
-			int numberOfVertices = g.getVertexNumber();
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
-			state = new State(col,this.g.getEdgesNumber(),maxdegree(this.g.getAllVertex()),null);
-			processus = new ArrayList<VertexController>();
+			col.add(Color.blue);
+			state = new State(col);
+			processus = new ArrayList<VertexAgent>();
 			for(Vertex v : g.getAllVertex()){
-				System.out.println("Vertex "+v+" , degree = "+v.getDegree());
-				int degree = v.getDegree();
-				int prior = givePriority(degree, numberOfVertices);
-				VertexController vc = new VertexController(v, g.getNeighbours(v), state);
-				vc.setPriority(prior);
+				VertexAgent vc = new VertexAgent(v, g.getNeighbours(v), state);
 				processus.add(vc);
 			}
-			this.master = new MasterController(this,processus,g.getAllEdges(), state, 3);
+			this.master = new MasterAgent(this,processus,g.getAllEdges(), state, 3);
 		} catch (GraphException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -86,14 +84,6 @@ public class ColorationAlgorithm  extends Algorithm {
 	}
 
 
-	private int maxdegree(Collection<Vertex> liste){
-		int max = Integer.MIN_VALUE;
-		for(Vertex v : liste){
-			int degree = v.getDegree();
-			if(degree > max) max = degree;
-		}
-		return max;
-	}
 
 	
 

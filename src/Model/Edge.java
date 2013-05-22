@@ -3,14 +3,18 @@ package Model;
 import java.io.Serializable;
 
 
-
+/**
+ * Classe représentant une arrête. Cette classe doit implémentée l'interface Serializable 
+ * @author KIEFFER
+ *
+ */
 public class Edge implements Serializable{
 	
 
-	private Vertex start;
+	private Vertex start; 
 	private Vertex end;
 	public InfoEdge u;
-	private int id;
+	private int id; // identifiant unique attribué à une arrête
 	
 	public Edge(Vertex start, Vertex end, InfoEdge u,int id) {
 		super();
@@ -46,6 +50,9 @@ public class Edge implements Serializable{
 		return id;
 	}
 
+	/**
+	 * L'égalité des arrêtes se fait sur leur identifiant
+	 */
 	public boolean equals(Object arg0) {
 		if(!(arg0 instanceof Edge)) return false;
 			Edge se = (Edge)arg0;
@@ -53,7 +60,9 @@ public class Edge implements Serializable{
 	}
 
 
-
+	/**
+	 * Le code de hashage sera l'identifiant unique de chaque arrête
+	 */
 	@Override
 	public int hashCode() {
 		// TODO Auto-generated method stub

@@ -6,6 +6,11 @@ import java.awt.event.ActionListener;
 import Model.Graphe;
 import UI.Windows;
 
+/**
+ * Listener permettant d'effacer le panel et de construire un graphe vide
+ * @author KIEFFER
+ *
+ */
 public class ClearListener implements ActionListener {
 
 	private Windows win;

@@ -2,6 +2,11 @@ package Test;
 
 import UI.Windows;
 
+/**
+ * Main du mode graphique
+ * @author KIEFFER
+ *
+ */
 public class TestAppli {
 
 	/**

@@ -16,6 +16,11 @@ import UI.Windows;
 import statistics.Statistics;
 import statistics.IO.StatisticsWriter;
 
+/**
+ * Listener permettant de démarre l'enregistrement des statistics
+ * @author KIEFFER
+ *
+ */
 public class StartRecordListener implements ActionListener {
 
 	private Statistics stats;

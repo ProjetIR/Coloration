@@ -3,7 +3,12 @@ import java.awt.Frame;
 import java.awt.Panel;
 import java.util.TimerTask;
 
-
+/**
+ * La tâche appelée périodiquement pour rafraichir le panel de l'application
+ * Utilisé pour l'effet intéractif principalement
+ * @author KIEFFER
+ *
+ */
 public class Task extends TimerTask {
 
 	private Panel f;

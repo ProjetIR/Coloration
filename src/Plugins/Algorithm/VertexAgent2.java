@@ -7,20 +7,22 @@ import java.util.Collection;
 import Model.Vertex;
 import Utils.RandomBetween;
 
-public class VertexController extends Thread {
+public class VertexAgent2 extends Thread {
 	
 	private Vertex v;
 	private Collection<Vertex> neighbours;
 	private Plugins.Algorithm.State state;
 	private RandomBetween generator;
+	private double temp;
 
 	
-	public VertexController(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state) {
+	public VertexAgent2(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state) {
 		super();
 			this.v = v;
 			this.neighbours = neighbours;
 			this.state = state;
 			this.generator = new RandomBetween(System.currentTimeMillis());
+			this.temp = this.v.getDegree();
 			
 	}
 	
@@ -47,25 +49,28 @@ public class VertexController extends Thread {
 		// TODO Stub de la méthode généré automatiquement
 		try {
 			while(!this.isInterrupted()){
-				Color[] colors =  state.getColors();
-				int[] repartition = getRepartionColor(colors, neighbours);
-				int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
-				int argmin = argMIN(repartition);
-				if(repartition[posColor] != 0) {
-					int selectedPosition = generator.randomValue(0, colors.length-1);
-					int deltaE = repartition[selectedPosition]-repartition[posColor];
-					if(deltaE < 0){
-						synchronized (this.v) {
-								this.v.getInfo().setCol(colors[selectedPosition]);	
-						}
-					}else{
-						double val = probabilityFunction(deltaE, this.getNbConflicts());
-						System.out.println(val);
-						if(Math.random() < val){
-							synchronized (this.v) {
-								this.v.getInfo().setCol(colors[selectedPosition]);	
-						}
-						}
+				if(state.masterSleep){
+					Color[] colors =  state.getColors();
+					int[] repartition = getRepartionColor(colors, neighbours);
+					int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
+					int argmin = argMIN(repartition);
+					if(repartition[posColor] != 0) {
+							int indice = generator.randomValue(0, colors.length-1);
+							if(repartition[indice] < repartition[posColor]){
+								synchronized (this.v) {
+									this.v.getInfo().setCol(colors[indice]);	
+								}
+							}else{
+								double proba = Math.random();
+								if(proba >= Math.exp((-1.0)*(this.temp - repartition[posColor])/this.temp)){
+									synchronized (this.v) {
+										this.v.getInfo().setCol(colors[indice]);	
+									}
+								}
+							}
+							System.out.println(this.temp);
+							this.temp = 0.6*this.temp;
+						
 					}
 				}
 				Thread.sleep(10);
@@ -94,18 +99,19 @@ public class VertexController extends Thread {
 		return repartition;
 	}
 	
-	private int argMIN(int[] tab){
-		int min = Integer.MAX_VALUE;
-		int argmin = 0;
-		for(int i = 0 ;i <tab.length;i++){
-			if(tab[i]<min){
-				argmin = i;
-				min = tab[i];
-			}
 
+
+	private int argMIN(int[] tab){		
+		int min = Integer.MAX_VALUE;		
+		int argmin = 0;		
+		for(int i = 0 ;i <tab.length;i++){			
+			if(tab[i]<min){				
+				argmin = i;				
+				min = tab[i];			
+				}		
+			}		
+		return argmin;	
 		}
-		return argmin;
-	}
 	
 	public int indiceFromColor(Color c,Color[] colors){
 		
@@ -115,9 +121,7 @@ public class VertexController extends Thread {
 		return -1;
 	}
 	
-	private double probabilityFunction(double d ,double temp){
-		return Math.exp((-1.0)*(d)/temp);
-	}
+
 
 	
 }

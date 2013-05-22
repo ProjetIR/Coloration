@@ -167,7 +167,9 @@ public class Windows extends Frame {
 		setMenuBar(mbar);
 	}
 
-	
+	/**
+	 * On crée autant de sous-menus que d'algorithmes chargés
+	 */
 	private void initialisationMenuAlgorithm(){
 		Menu m = new Menu("Algorithm");
 		for(Class s : this.listeAlgorithme){

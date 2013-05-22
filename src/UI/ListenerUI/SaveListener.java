@@ -10,6 +10,11 @@ import IO.GrapheWriter;
 import Model.Graphe;
 import UI.Windows;
 
+/**
+ * Listener permettant de sérialiser puis de sauvegarder le graphe sérialisé
+ * @author KIEFFER
+ *
+ */
 public class SaveListener implements ActionListener {
 
 	private Windows win;

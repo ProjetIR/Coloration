@@ -5,21 +5,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * Classe représentant la ressource partagée entre les agents et l'agent maître
+ * @author KIEFFER
+ *
+ */
 public class State {
 
 	private ArrayList<Color> colors;
-	private double temp;
-	private int maxDegree;
-	private int currentDegree;
-	private int[] tabDegree;
+	public  boolean masterSleep = true;
+	public double t = 1;
 
-	public State(ArrayList<Color> colors,double temp,int maxDegree,int[] tabDegree) {
+	public State(ArrayList<Color> colors) {
 		super();
-		this.colors = colors;
-		this.temp = temp;
-		this.maxDegree = maxDegree;
-		this.currentDegree = maxDegree;
-		this.tabDegree = tabDegree;
+		this.colors = colors;	
 	}
 
 	public Color[] getColors() {
@@ -32,26 +31,16 @@ public class State {
 
 	
 	
+
 	
 
-	public int[] getTabDegree() {
-		return tabDegree;
-	}
-
-
-
-	public int getCurrentDegree() {
-		return currentDegree;
-	}
-
-	public void setCurrentDegree(int currentDegree) {
-		this.currentDegree = currentDegree;
-	}
+	
 
 	public Collection<Color> getCollectionColors() {
 
 		return colors;
 	}
+	
 	
 	public void addColor(Color c){
 		this.colors.add(c);
@@ -62,13 +51,7 @@ public class State {
 		return colors.size();
 	}
 	
-	public double getTemperature(){
-		return this.temp;
-	}
 	
-	public void setTemperature(double newTemp){
-		this.temp = newTemp;
-	}
 	@Override
 	public String toString() {
 		// TODO Stub de la méthode généré automatiquement
@@ -79,10 +62,7 @@ public class State {
 		return s;
 	}
 
-	public int getMaxDegree() {
-		// TODO Auto-generated method stub
-		return maxDegree;
-	}
+	
 	
 	
 	

@@ -6,7 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.io.Serializable;
 
-
+/**
+ * Classe représentant la notion d'information d'un arrête
+ * @author KIEFFER
+ *
+ */
 public class InfoEdge extends Info implements Serializable{
 
 	private double weight;
@@ -37,6 +41,9 @@ public class InfoEdge extends Info implements Serializable{
 		return info;
 	}
 	
+	/**
+	 * Par de représentation particulière pour une arrête
+	 */
 	@Override
 	public void paint(Graphics2D g2d) {
 		// TODO Stub de la méthode généré automatiquement

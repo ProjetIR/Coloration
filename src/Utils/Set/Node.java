@@ -1,7 +1,12 @@
 package Utils.Set;
 
 
-
+/**
+ * Représente un noeud pour la structure de données Forêt d'ensemble disjoint
+ * @author KIEFFER
+ *
+ * @param <T>
+ */
 public class Node<T> {
 
 	private int rank;

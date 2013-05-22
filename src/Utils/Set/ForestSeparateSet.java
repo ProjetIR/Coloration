@@ -1,5 +1,13 @@
 package Utils.Set;
 
+/**
+ * Structure de données Forêt d'ensemble disjoint
+ * Utile pour la génération aléatoire d'un graphe
+ * Grâce à cette structure, on crée d'abord un arbre puis on le décore pour obtenir un graphe connexe
+ * @author KIEFFER
+ *
+ * @param <T>
+ */
 public class ForestSeparateSet<T> {
 
 

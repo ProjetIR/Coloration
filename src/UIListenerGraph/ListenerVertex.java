@@ -11,7 +11,11 @@ import UI.Windows;
 import UIGraph.GraphVisualizer;
 import UIGraph.UIModel.VertexUI;
 
-
+/**
+ * Listener des actions utilisateurs sur un sommet
+ * @author KIEFFER
+ *
+ */
 public class ListenerVertex implements MouseListener{
 
 	private GraphVisualizer visu;
@@ -21,6 +25,11 @@ public class ListenerVertex implements MouseListener{
 		this.visu = visu;
 	}
 
+	/**
+	 *  shift + bouton 1 = crée sommet
+	 *  shift + bouton 3 sur sommet = supprimer sommet
+	 *  click sur sommet = sélectionner/déselectionner le sommet 
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Stub de la méthode généré automatiquement

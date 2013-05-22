@@ -5,6 +5,11 @@ import java.awt.Paint;
 
 import org.jfree.chart.renderer.category.BarRenderer;
 
+/**
+ * Classe permettant d'afficher les barres d'un diagramme en barres de couleurs différentes
+ * @author KIEFFER
+ *
+ */
 class CustomRenderer extends BarRenderer {
 
     /** The colors. */

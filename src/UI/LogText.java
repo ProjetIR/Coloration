@@ -5,6 +5,11 @@ import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.TextArea;
 
+/**
+ * Classe héritant de TextArea est représentant une zone de texte pour le log
+ * @author KIEFFER
+ *
+ */
 public class LogText extends TextArea {
 
 	public LogText() throws HeadlessException {

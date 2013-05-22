@@ -8,6 +8,11 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+/**
+ * Handler qui va permet de simuler un log dans un TextArea
+ * @author KIEFFER
+ *
+ */
 public class TextAreaHandler extends Handler {
 
 	private TextArea text;

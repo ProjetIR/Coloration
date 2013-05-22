@@ -9,14 +9,22 @@ import Model.Graphe;
 import Model.Vertex;
 import Utils.RandomBetween;
 
-
+/**
+ * Algorithme qui permet de placer aléatoirement les sommets sur un panel
+ * @author KIEFFER
+ *
+ */
 public class RandomDisposition extends Algorithm {
 
 	private Panel p;
 	private Graphe g;
 	private RandomBetween gen;
 
-	
+	/**
+	 * Cosntructeur de la classe
+	 * @param p un panel
+	 * @param g un graphe quelconque
+	 */
 	public RandomDisposition(Panel p,Graphe g) {
 		super();
 		this.p = p;
@@ -24,6 +32,9 @@ public class RandomDisposition extends Algorithm {
 		this.gen = new RandomBetween(System.currentTimeMillis());
 	}
 	
+	/**
+	 * Méthode appelée pour executer le placement aléatoire
+	 */
 	public void compute() {
 		// TODO Stub de la méthode généré automatiquement
 		Collection<Vertex> vertex = g.getAllVertex();
@@ -35,6 +46,9 @@ public class RandomDisposition extends Algorithm {
 
 	}
 
+	/**
+	 * Ne renvoit pas de résultat
+	 */
 	@Override
 	protected String sendAResult() {
 		// TODO Stub de la méthode généré automatiquement

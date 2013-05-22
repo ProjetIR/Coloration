@@ -13,6 +13,7 @@ import java.util.Observer;
 import Model.Vertex;
 
 /**
+ *  Classe enveloppe d'un sommet pour le mode graphique 
  * Attention le centre théorique n'est pas le même que le centre d'affichage
  * @author emmanuel
  *

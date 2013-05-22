@@ -16,7 +16,7 @@ import Utils.RandomBetween;
 public class MasterAgent extends Thread{
 	
 	private Algorithm coloration;
-	private Collection<VertexMin> processus;
+	private Collection<VertexAgent> processus;
 	private Collection<Edge> edges;
 	private Plugins.Algorithm.State state;
 	private int totalConflits;
@@ -24,9 +24,8 @@ public class MasterAgent extends Thread{
 	private int nbWakeUp;
 	private int counter;
 	private RandomBetween generator;
-	private int cpt;
-
-	public MasterAgent(Algorithm coloration,Collection<VertexMin> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
+	
+	public MasterAgent(Algorithm coloration,Collection<VertexAgent> processus,Collection<Edge> edges,Plugins.Algorithm.State state,int nbWakeUp) {
 		super();
 		this.coloration = coloration;
 		this.processus = processus;
@@ -36,8 +35,6 @@ public class MasterAgent extends Thread{
 		oldTotalConflits = 0;
 		this.nbWakeUp = nbWakeUp;
 		this.generator = new RandomBetween(System.currentTimeMillis());
-		this.cpt = 0;
-	
 	}
 
 	@Override
@@ -47,7 +44,7 @@ public class MasterAgent extends Thread{
 			while(!isInterrupted()){
 			  
 			  synchronized (this.state) {
-			
+				state.masterSleep = false;
 				totalConflits = 0;
 				for(Edge e : this.edges){
 					Color start = e.getStart().getInfo().getCol();
@@ -66,19 +63,15 @@ public class MasterAgent extends Thread{
 
 					counter++;
 					if(counter == nbWakeUp){
-						if(cpt < state.getTabDegree().length){
-							state.setCurrentDegree(state.getTabDegree()[cpt]);
-							cpt++;
-						}else {
-							cpt=0;
-							Color c = generator.giveNewRandomColor(state.getCollectionColors());
-							state.addColor(c);
-						}	
+
+						Color c = generator.giveNewRandomColor(state.getCollectionColors());
+						state.addColor(c);
 						counter = 0;
 					}
 				}
 				
 				oldTotalConflits = totalConflits;
+				state.masterSleep = true;
 				Thread.sleep(10);
 			
 			
@@ -109,7 +102,7 @@ public class MasterAgent extends Thread{
 
 	private void interruptAll() {
 		// TODO Stub de la méthode généré automatiquement
-		for(VertexMin t : processus){
+		for(VertexAgent t : processus){
 			t.interrupt();
 		}
 		this.interrupt();
@@ -121,11 +114,11 @@ public class MasterAgent extends Thread{
 	}
 	
 
-	private int[] getRepartionColor(Color[] availableColor,Collection<VertexMin> neighbours ) throws InterruptedException{
+	private int[] getRepartionColor(Color[] availableColor,Collection<VertexAgent> neighbours ) throws InterruptedException{
 		
 		int[] repartition = new int[availableColor.length];
 		for(int i = 0;i<availableColor.length;i++){
-			for(VertexMin v : neighbours){
+			for(VertexAgent v : neighbours){
 			
 					if(availableColor[i].equals(v.getVertex().getInfo().getCol())){
 						repartition[i]++;

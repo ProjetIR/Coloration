@@ -2,22 +2,26 @@ package Plugins.Algorithm;
 
 import java.awt.Color;
 import java.util.Collection;
-import Model.Vertex;
 
-public class VertexMin extends Thread {
+
+import Model.Vertex;
+import Utils.RandomBetween;
+
+public class VertexAgent extends Thread {
 	
 	private Vertex v;
 	private Collection<Vertex> neighbours;
 	private Plugins.Algorithm.State state;
-
+	private RandomBetween generator;
 
 	
-	public VertexMin(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state,boolean sleep) {
+	public VertexAgent(Vertex v,Collection<Vertex> neighbours,Plugins.Algorithm.State state) {
 		super();
 			this.v = v;
 			this.neighbours = neighbours;
 			this.state = state;
-
+			this.generator = new RandomBetween(System.currentTimeMillis());
+			
 	}
 	
 	public Vertex getVertex(){
@@ -43,27 +47,29 @@ public class VertexMin extends Thread {
 		// TODO Stub de la méthode généré automatiquement
 		try {
 			while(!this.isInterrupted()){
-				if( ((Plugins.Algorithm.State) state).getCurrentDegree() >= this.v.getDegree()){
+				if(state.masterSleep){
 					Color[] colors =  state.getColors();
 					int[] repartition = getRepartionColor(colors, neighbours);
 					int posColor = indiceFromColor(this.v.getInfo().getCol(), colors);
-					int argmin = argMIN(repartition,colors);
-					if(repartition[posColor] > 0) {
-						 if(repartition[posColor] != repartition[argmin])
-							synchronized (this.v) {
+					int argmin = argMIN(repartition);
+					if(repartition[posColor] != 0) {
+
+						synchronized (this.v) {
 							this.v.getInfo().setCol(colors[argmin]);	
-							}
-						
+						}
+
 					}
 				}
-				Thread.sleep(10);	
+				Thread.sleep(10);
+
+
 			}
 		} catch (InterruptedException e) {
 			// TODO Bloc catch généré automatiquement
 			//System.out.println("Mort du Thread vertex "+this.v.getId());
 		}
 	}
-
+	
 	private int[] getRepartionColor(Color[] availableColor,Collection<Vertex> neighbours ) throws InterruptedException{
 		
 		int[] repartition = new int[availableColor.length];
@@ -80,27 +86,19 @@ public class VertexMin extends Thread {
 		return repartition;
 	}
 	
-	private int argMIN(int[] tab,Color[] colors){
+
+	
+	private int argMIN(int[] tab){
 		int min = Integer.MAX_VALUE;
 		int argmin = 0;
 		for(int i = 0 ;i <tab.length;i++){
-			if(tab[i]<min && (!isVertexHigherDegreeWith(colors[i]))){
+			if(tab[i]<min){
 				argmin = i;
 				min = tab[i];
 			}
 
 		}
 		return argmin;
-	}
-	
-	private boolean isVertexHigherDegreeWith(Color c){
-		
-		for(Vertex v : this.neighbours){
-			if(v.getInfo().getCol().equals(c) && v.getDegree() > this.v.getDegree()){
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	public int indiceFromColor(Color c,Color[] colors){
@@ -111,15 +109,12 @@ public class VertexMin extends Thread {
 		return -1;
 	}
 	
-	public int nbConflicts(){
-		int val = 0;
-		for(Vertex v : this.neighbours){
-			if(this.v.getInfo().getCol().equals(v.getInfo().getCol())){
-				val++;
-			}
-		}
-		return val;
-	}
+	
 
+	private double probabilityFunction(double d ,double temp){
+		return Math.exp((-1.0)*(d)/temp);
+	}
+	
+	
 	
 }

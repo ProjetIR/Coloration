@@ -4,29 +4,22 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-
-
+import java.util.HashMap;
 
 import algorithm.Algorithm;
-
-
-
-
 import Model.GraphException;
 import Model.Graphe;
 import Model.Vertex;
 
-public class ColorationAgent  extends Algorithm {
+public class ColorationAlgorithm2  extends Algorithm {
 	
 	private Graphe g;
-	private ArrayList<VertexMin> processus;
+	private ArrayList<VertexAgent2> processus;
 	private State state;
-	private MasterAgent master;
+	private MasterAgent2 master;
 	
 
-	public ColorationAgent(Graphe g){
+	public ColorationAlgorithm2(Graphe g){
 		super();
 		try {
 			this.g = g;
@@ -34,16 +27,15 @@ public class ColorationAgent  extends Algorithm {
 			ArrayList<Color> col = new ArrayList<Color>();
 			col.add(Color.red);
 			col.add(Color.blue);
+			state = new State(col);
+			processus = new ArrayList<VertexAgent2>();
 			ArrayList<Vertex> vertices = new ArrayList<Vertex>(g.getAllVertex());
-			Collections.sort(vertices,new DegreeComparatorDecroiss());
-			state = new State(col,0,maxdegree(vertices),tabDegree(vertices));
-			processus = new ArrayList<VertexMin>();
 			for(Vertex v : vertices){
 				System.out.println("Vertex "+v+" , degree = "+v.getDegree());
-				VertexMin vc = new VertexMin(v, g.getNeighbours(v), state,false);
+				VertexAgent2 vc = new VertexAgent2(v, g.getNeighbours(v), state);
 				processus.add(vc);
 			}
-			this.master = new MasterAgent(this,processus,g.getAllEdges(), state, 3);
+			this.master = new MasterAgent2(this,this.g,processus,state, 10);
 		} catch (GraphException e) {
 			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
@@ -63,7 +55,6 @@ public class ColorationAgent  extends Algorithm {
 			p.start();
 		}
 		this.master.start();
-	
 
 	}
 	
@@ -105,19 +96,7 @@ public class ColorationAgent  extends Algorithm {
 		return max;
 	}
 
-    public int[] tabDegree(Collection<Vertex> vertices){
-    	HashSet<Integer> set = new HashSet<Integer>();
-    	for(Vertex v : vertices){
-    		set.add(new Integer(v.getDegree()));
-    	}
-    	Iterator<Integer> it = set.iterator();
-    	int [] tab = new int[set.size()];
-    	int cpt = 0;
-    	while(it.hasNext()){
-    		tab[cpt] = it.next().intValue();
-    		cpt++;
-    	}
-    	return tab;
-    }
+	
+	
 
 }

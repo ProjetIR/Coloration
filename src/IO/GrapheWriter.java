@@ -4,6 +4,11 @@ import java.io.*;
 
 import Model.Graphe;
 
+/**
+ * Classe permettant de sérialiser un graphe et de l'enregistrer dans un fichier
+ * @author KIEFFER
+ *
+ */
 public class GrapheWriter {
 
 	private java.io.FileOutputStream fichier;

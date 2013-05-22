@@ -22,12 +22,17 @@ import statistics.Statistics;
 import Model.Graphe;
 import UI.Windows;
 
-
+/**
+ * Classe permettant d'afficher les informations sur l'évolutions de certains critères du graphes
+ * sous forme de graphiques
+ * @author KIEFFER
+ *
+ */
 public class MonitorStart extends Dialog implements Observer {
 	
 	private Windows parent;
 	private Statistics stats;
- 	private TimeSeriesChart panel;
+ 	private TimeSeriesChart panel; // représente des séries temporelles
 	private TimeSeriesChart panel1; 
 	private TimeSeriesChart panel2;
 

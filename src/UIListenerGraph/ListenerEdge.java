@@ -7,7 +7,11 @@ import UIGraph.GraphVisualizer;
 import UIGraph.UIModel.EdgeUi;
 
 
-
+/**
+ * Listener des actions utilisateurs sur une arrête
+ * @author KIEFFER
+ *
+ */
 public class ListenerEdge implements MouseListener{
 
 	private GraphVisualizer visu;
@@ -24,7 +28,10 @@ public class ListenerEdge implements MouseListener{
 
 		
 
-		
+			/**
+			 * Attention retransmission des évènements aux panels qui gère
+			 * l'intéraction arrêtes-utilisateurs
+			 */
 			EdgeUi uie = (EdgeUi)e.getSource();
 			MouseListener[] listeners = uie.getParent().getMouseListeners();
 			for(MouseListener ml : listeners){

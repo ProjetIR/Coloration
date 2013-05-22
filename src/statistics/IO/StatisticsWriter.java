@@ -10,6 +10,12 @@ import java.util.Observer;
 
 import statistics.Record;
 
+/**
+ * Classe permettant de stocker les informations issues des statistics de l'instance Statitics
+ * et de les sauvegarder dans un fichier
+ * @author KIEFFER
+ *
+ */
 public class StatisticsWriter implements Observer{
 
 	private java.io.FileOutputStream fichier;

@@ -24,37 +24,22 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.ui.RectangleInsets;
 /**
-* A demo application showing a dynamically
- updated chart that displays the
-* current JVM memory usage.
-* <p>
-* IMPORTANT NOTE: THIS DEMO IS DOCUMENTED
- IN THE JFREECHART DEVELOPER GUIDE.
-* DO NOT MAKE CHANGES WITHOUT UPDATING THE
- GUIDE ALSO!!
+*Classe représentant un panel destiné à afficher des données temporelles
 */
 public class TimeSeriesChart extends Panel
  {
 /** Time series for total memory used. */
 private TimeSeries total;
-/** Time series for free memory. */
-private TimeSeries free;
-/**
-* Creates a new application.
-*
-* @param maxAge the maximum age (in milliseconds).
-*/
+
+
+
 public TimeSeriesChart(String title, String xlab,String ylab) {
 super(new BorderLayout());
 // create two series that automatically discard data more than 30
  // seconds old...
-this.total = new TimeSeries(title, Second.class);
-//this.total.setMaximumItemAge(maxAge);
-//this.free = new TimeSeries("Free Memory", Millisecond.class);
-//this.free.setMaximumItemAge(maxAge);
+this.total = new TimeSeries(title, Second.class); // déprécier depuis peu ????
 TimeSeriesCollection dataset = new TimeSeriesCollection();
 dataset.addSeries(this.total);
-//dataset.addSeries(this.free);
 DateAxis domain = new DateAxis(xlab);
 NumberAxis range = new NumberAxis(ylab);
 domain.setTickLabelFont(new Font("SansSerif", Font.PLAIN, 12));
@@ -65,7 +50,7 @@ XYItemRenderer renderer = new XYLineAndShapeRenderer(true, false);
 renderer.setSeriesPaint(0, Color.red);
 renderer.setSeriesPaint(1, Color.green);
 renderer.setStroke(new BasicStroke(3f, BasicStroke.CAP_BUTT,
-BasicStroke.JOIN_BEVEL));
+BasicStroke.JOIN_BEVEL)); // pareil ????
 XYPlot plot = new XYPlot(dataset, domain, range, renderer);
 plot.setBackgroundPaint(Color.lightGray);
 plot.setDomainGridlinePaint(Color.white);
@@ -86,7 +71,7 @@ BorderFactory.createLineBorder(Color.black)));
 add(chartPanel);
 }
 /**
-* Adds an observation to the ’total memory’ time series.
+*Ajoute une nouvelle donnée à la série temporelle
 *
 * @param y the total memory used.
 */

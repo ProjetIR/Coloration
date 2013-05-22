@@ -11,7 +11,11 @@ import UIGraph.GraphVisualizer;
 import UIGraph.UIModel.VertexUI;
 
 
-
+/**
+ * Classe permettant la gestion des évènements permettant de déplacer des sommets
+ * @author KIEFFER
+ *
+ */
 public class Motion implements MouseMotionListener {
 	
 	

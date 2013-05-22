@@ -8,7 +8,11 @@ import java.io.Serializable;
 
 
 
-
+/**
+ * Classe représentant la notion d'information d'un arrête
+ * @author KIEFFER
+ *
+ */
 public class InfoVertex extends Info implements Serializable{
 
 	/**
@@ -16,7 +20,7 @@ public class InfoVertex extends Info implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Point coord;
-	private int rayon; // rayon
+	private int rayon; // rayon car on suppose afficher un cercle -- cela pourrait être différent
 	
 	
 	
@@ -53,6 +57,9 @@ public class InfoVertex extends Info implements Serializable{
 		return info;
 	}
 
+	/**
+	 * Méthode permettant d'afficher un sommet sous forme de cercle 
+	 */
 	public void paint(Graphics2D g2d){
 		
 		g2d.setColor(this.col);

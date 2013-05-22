@@ -4,6 +4,11 @@ import java.lang.Thread.State;
 
 import Model.Graphe;
 
+/**
+ * Onservator du nombre de thread en sommeil
+ * @author KIEFFER
+ *
+ */
 public class ThreadObservator extends Observator{
 
 	public ThreadObservator(Graphe g) {

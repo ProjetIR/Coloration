@@ -5,6 +5,11 @@ import java.awt.event.ActionListener;
 
 import statistics.Statistics;
 
+/**
+ * Listener permettant d'arrêter l'enregistrement des statistics
+ * @author KIEFFER
+ *
+ */
 public class StopRecordListener implements ActionListener {
 
 	private Statistics stats;

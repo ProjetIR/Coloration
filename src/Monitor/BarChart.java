@@ -19,7 +19,7 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Millisecond;
 /**
-* A simple demonstration application showing how to create a bar chart.
+* Classe permettant de représenter une diagramme en bar
 */
 public class BarChart extends Panel {
 /**

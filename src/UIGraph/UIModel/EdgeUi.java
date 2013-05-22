@@ -14,6 +14,11 @@ import java.util.Observer;
 import Model.Edge;
 import Utils.CompositeStroke;
 
+/**
+ * Classe enveloppe d'une arrête pour le mode graphique
+ * @author KIEFFER
+ *
+ */
 public class EdgeUi extends Component implements Observer{
 
 	private Edge e;

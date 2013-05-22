@@ -7,14 +7,23 @@ import java.util.Collection;
 import UI.Windows;
 import algorithm.Algorithm;
 
-
+/**
+ * Classe permettant de charger de nouveau plugin au format .class
+ * (on pourrait faire une précompilation avec des .java)
+ * @author KIEFFER
+ *
+ */
 public class LoadPlugins {
 	
 	private static String packageAlgorithm = "Plugins.Algorithm.";
 	private static String directoryAlgorithm = "/bin/Plugins/Algorithm/";
 
 	
-	
+	/**
+	 * Méthode statique permettant de charger des classes présententes dans des fichiers .class 
+	 * et héritant de la classe Algorithm
+	 * @param listeAlgorithm
+	 */
 	public static void startLoadingPlugins(Collection<Class> listeAlgorithm){
 	       
 		File f = new File(System.getProperty("user.dir")+directoryAlgorithm);

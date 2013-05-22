@@ -18,7 +18,13 @@ import Utils.RandomBetween;
 import Utils.Set.ForestSeparateSet;
 import Utils.Set.Node;
 
-
+/**
+ * Générateur de graphes aléatoires
+ * On crée tout d'bord un arbre pour s'assurer que le graphe sera connexe
+ * puis on le décore
+ * @author KIEFFER
+ *
+ */
 public class RandomGenerator implements Generator {
 
 	

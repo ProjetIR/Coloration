@@ -9,7 +9,11 @@ import java.io.ObjectOutputStream;
 
 import Model.Graphe;
 
-
+/**
+ * Classe permettant de lire un fichier représentant un graphe sérialisé
+ * @author KIEFFER
+ *
+ */
 public class GrapheReader {
 
 	private java.io.FileInputStream fichier;
@@ -26,6 +30,10 @@ public class GrapheReader {
 		
 	}
 	
+	/**
+	 * Méthode principale qui retourne le graphe après lecture du fichier
+	 * @return
+	 */
 	public Graphe read(){
 	
 			try {

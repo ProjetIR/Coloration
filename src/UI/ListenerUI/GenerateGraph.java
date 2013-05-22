@@ -11,6 +11,11 @@ import Model.Graphe;
 import UI.Windows;
 import UI.Generation.GenerateGrapheDialog;
 
+/**
+ * Listener permettant d'ouvrir la boite de dialogue pour la création d'un graphe aléatoire
+ * @author KIEFFER
+ *
+ */
 public class GenerateGraph implements ActionListener {
 
 	private Graphe g;

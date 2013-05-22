@@ -11,6 +11,11 @@ import Model.InfoEdge;
 import Model.InfoVertex;
 import Model.Vertex;
 
+/**
+ * Classe permettant de lire un fichier .col issu des challenges DIMACS
+ * @author KIEFFER
+ *
+ */
 public class BenchMarkReader {
 	
 	private BufferedReader reader;

@@ -7,6 +7,11 @@ import java.util.HashSet;
 import Model.Graphe;
 import Model.Vertex;
 
+/**
+ * Classe retournant le nombre de couleurs différentes du graphes à un instant
+ * @author KIEFFER
+ *
+ */
 public class ColorVertexObservator extends Observator {
 	
 	

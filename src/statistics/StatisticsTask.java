@@ -2,6 +2,11 @@ package statistics;
 
 import java.util.TimerTask;
 
+/**
+ * Tâche effectué par le Timer de la classe Statistics
+ * @author KIEFFER
+ *
+ */
 public class StatisticsTask extends TimerTask{
 
 	private Statistics stats;

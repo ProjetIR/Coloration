@@ -13,6 +13,11 @@ import IO.Benchmark.BenchMarkReader;
 import Model.Graphe;
 import UI.Windows;
 
+/**
+ * Listener permettant de charger un graphe sérialisé (.gr)
+ * @author KIEFFER
+ *
+ */
 public class LoadListener implements ActionListener {
 
 	private Windows win;

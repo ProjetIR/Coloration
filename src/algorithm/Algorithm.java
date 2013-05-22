@@ -15,7 +15,7 @@ import UI.Task;
 /**
  * Classe utilitaire qui permet de démarrer la tâche de fin d'un algorithme. A savoir:
  * - Notification de fin d'algorithme au handler
- * - Transmission des résultat s'il y en a 
+ * - Transmission des résultats s'il y en a 
  * @author emmanuel
  *
  */
@@ -71,6 +71,12 @@ public abstract class Algorithm extends Observable{
 	
 
 	private Timer t;
+	
+	/**
+	 * Méthode appelée par chaque algorithme derivant de cette classe pour notifier la fin
+	 * de son execution au handler et permettant de laisser assez de temps aux threads en fin d'execution de 
+	 * s'arrêter
+	 */
 	public void end() {
 		// TODO Stub de la méthode généré automatiquement
 		this.t  = new Timer();

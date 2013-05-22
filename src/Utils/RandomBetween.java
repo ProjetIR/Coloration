@@ -5,6 +5,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 
+/**
+ * Générateur aléatoire 
+ * @author KIEFFER
+ *
+ */
 public class RandomBetween {
 
 	private Random gen;

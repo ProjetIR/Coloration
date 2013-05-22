@@ -24,7 +24,12 @@ import UIListenerGraph.Motion;
 
 
 
-
+/**
+ * Classe représentant un gestionnaire d'affichage pour un graphe
+ * Elle gère les intéractions entre le graphe et les utilisateurs
+ * @author KIEFFER
+ *
+ */
 public class GraphVisualizer {
 	
 	private Graphe g;

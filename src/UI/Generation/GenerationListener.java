@@ -11,6 +11,11 @@ import Model.Generator.Generator;
 import Model.Generator.RandomGenerator;
 import UI.Windows;
 
+/**
+ * Listener permettant d'afficher et de stocker un nouveau graphe aléatoire
+ * @author KIEFFER
+ *
+ */
 public class GenerationListener extends MouseAdapter {
 
 	private GenerateGrapheDialog dial;

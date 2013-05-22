@@ -1,7 +1,12 @@
 package Model;
 
 
-
+/**
+ * Classe d'exception principale pour la classe Graphe
+ * Utilise une énumération pour lister les exceptions possibles
+ * @author KIEFFER
+ *
+ */
 public class GraphException extends Exception {
 
 

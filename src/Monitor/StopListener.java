@@ -6,7 +6,11 @@ import java.awt.event.WindowListener;
 import statistics.Statistics;
 
 
-
+/**
+ * Permet de stopper l'affichage des stats sur des graphiques
+ * @author KIEFFER
+ *
+ */
 public class StopListener implements WindowListener {
 
 	private MonitorStart start;
